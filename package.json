@@ -2,11 +2,12 @@
     "name": "excel",
     "version": "0.0.1",
     "private": true,
-    "main": "dist/main.js",
+    "main": "main.js",
     "scripts": {
-        "start": "electron .",
         "watch": "webpack --watch --progress --debug",
-        "build": "webpack --progress && cp src/excel/index.html dist/index.html && cp src/main.js dist/main.js"
+        "build": "webpack --progress && cp src/excel/index.html dist/index.html && cp src/main.js dist/main.js && cp package.json dist/package.json",
+        "start": "electron dist/main.js",
+        "package": "electron-packager ./dist excel --arch=x64 --out=out --platform=win32 --overwrite"
     },
     "dependencies": {
         "babel-core": "^6.26.0",
