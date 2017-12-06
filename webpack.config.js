@@ -2,7 +2,7 @@ const debug = process.env.NODE_ENV !== "production";
 const webpack = require('webpack');
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, './src/excel')
+const SRC_DIR = path.resolve(__dirname, './src/app')
 const DIST_DIR = path.resolve(__dirname, './dist')
 
 module.exports = {

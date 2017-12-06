@@ -1,11 +1,11 @@
 {
-    "name": "excel",
+    "name": "lottery",
     "version": "1.0.12",
     "private": true,
     "main": "main.js",
     "scripts": {
-        "build": "webpack --progress && cp src/excel/index.html dist/index.html && cp src/main.js dist/main.js && cp package.json dist/package.json",
-        "package": "electron-packager ./dist excel --arch=x64 --out=out --platform=win32 --overwrite",
+        "build": "webpack --progress && cp src/app/index.html dist/index.html && cp src/main.js dist/main.js && cp package.json dist/package.json",
+        "package": "electron-packager ./dist lottery --arch=x64 --out=out --platform=win32 --overwrite",
         "start": "electron dist/main.js"
     },
     "dependencies": {
