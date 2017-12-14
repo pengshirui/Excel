@@ -2,7 +2,7 @@ const debug = process.env.NODE_ENV !== "production";
 const webpack = require('webpack');
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, './src/app')
+const SRC_DIR = path.resolve(__dirname, './src/root')
 const DIST_DIR = path.resolve(__dirname, './dist')
 
 module.exports = {
@@ -19,6 +19,9 @@ module.exports = {
                 presets: ['react', 'es2015', 'stage-0']
             }
         }]
+    },
+    node: {
+        fs: 'empty'
     },
     output: {
         path: DIST_DIR,

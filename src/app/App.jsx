@@ -1,18 +1,24 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { compose, withState } from 'recompose';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+import { readFile } from '../file/FileService.js';
+
+const a =  readFile();
+const enhance = compose(
+  withState('content', 'setContent', a)
+)
+
+const Component = (props) => {
+  const { content } = props;
+  return (
+    <div>
+      <input type="file" id="input" accept='.csv'/>
+      <p>
+        {content}
+      </p>
+    </div>
+  );
 }
 
+const App = enhance(Component);
 export default App;
