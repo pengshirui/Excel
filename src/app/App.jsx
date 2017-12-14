@@ -3,18 +3,23 @@ import { compose, withState } from 'recompose';
 
 import { readFile } from '../file/FileService.js';
 
-const a =  readFile();
+const content = readFile();
+const list = convertCsvTo2DArray(content);
+
 const enhance = compose(
-  withState('content', 'setContent', a)
+  withState('content', 'setContent', list)
 )
 
 const Component = (props) => {
   const { content } = props;
+  const entry = content.map((element, j) => {
+    (<div key={j}>{element}</div>);
+  });
   return (
     <div>
-      <input type="file" id="input" accept='.csv'/>
+      <input type="file" id="input" accept='.csv' />
       <p>
-        {content}
+        {entry}
       </p>
     </div>
   );
