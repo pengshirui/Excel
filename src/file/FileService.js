@@ -1,9 +1,9 @@
 const fs = window.require('fs');
 
-export function readFile() {
-  return fs.readFileSync('C:/Users/peng/Desktop/a.csv', 'utf8');
+export const readFile = (path) => {
+  return fs.readFileSync(path, 'utf8');
 }
 
-export function convertCsvTo2DArray(content) {
+export const convertCsvTo2DArray = (content) => {
   content ? content.split("\n").map(function (row) { return row.split(","); }) : [];
 }

@@ -4,9 +4,10 @@
     "private": true,
     "main": "main.js",
     "scripts": {
-        "build": "webpack --progress && cp src/root/index.html dist/index.html && cp src/main.js dist/main.js && cp package.json dist/package.json",
-        "package": "electron-packager ./dist lottery --arch=x64 --out=out --platform=win32 --overwrite",
-        "start": "electron dist/main.js"
+        "compile": "webpack --progress --display-error-details",
+        "build": "yarn compile && cp src/root/index.html dist/index.html && cp src/main.js dist/main.js",
+        "package": "cp package.json dist/package.json && electron-packager ./dist lottery --arch=x64 --out=out --platform=win32 --overwrite",
+        "start": "yarn build && electron dist/main.js"
     },
     "dependencies": {
         "babel-core": "^6.26.0",
@@ -15,14 +16,18 @@
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-0": "^6.24.1",
         "electron": "1.7.9",
+        "eslint-plugin-react": "^7.5.1",
         "react": "^16.2.0",
+        "react-bootstrap": "^0.31.5",
         "react-dom": "^16.2.0",
         "react-scripts": "1.0.17",
         "recompose": "0.26.0"
     },
     "devDependencies": {
         "babel": "^6.23.0",
+        "babel-eslint": "^8.0.3",
         "electron-packager": "^10.1.0",
+        "eslint": "^4.13.1",
         "webpack": "^3.10.0"
     }
 }
