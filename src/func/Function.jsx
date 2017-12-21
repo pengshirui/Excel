@@ -5,7 +5,6 @@ import { compose, withState, withHandlers } from 'recompose';
 import { BallData } from '../home/BallData.jsx';
 import { convertStrToArr } from '../data/FileService.js';
 import { FieldGroup } from '../func/FieldGroup.jsx';
-import { isEmptyStr } from '../util/Guard.js';
 
 const enhance = compose(
   withState("content", "setContent", ""),
@@ -28,7 +27,7 @@ const enhance = compose(
 
 const component = (props) => {
   const {header, result, args, content, updateArgs, updateContent, submit} = props;
-  const regex = /^\d+(,\d+)*$/
+  const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args) || !regex.test(content);
   return (
     <Grid fluid={true}>
