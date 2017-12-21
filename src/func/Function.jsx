@@ -28,7 +28,7 @@ const enhance = compose(
 const component = (props) => {
   const {header, result, args, data, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
-  const disabled = !regex.test(args) || !regex.test(content);
+  const disabled = !regex.test(args) || !regex.test(data);
   return (
     <Grid fluid={true}>
       <FieldGroup label="数据" onChange={updateData}/>
