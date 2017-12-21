@@ -1,14 +1,18 @@
 const fs = window.require('fs');
 
 export const readFile = (path) => {
-  return fs.readFileSync(path, 'utf8');
+  if (path.endsWith("csv")) {
+    return fs.readFileSync(path, 'utf8');
+  } else {
+    return;
+  }
 }
 
 export const getCol = (twoDArr, colNum) => {
   let res = [];
   for(let i = 0; i < twoDArr.length; i++) {
     if (colNum < twoDArr[i].length) {
-      if (twoDArr[i][colNum]) {
+      if (!isNaN(twoDArr[i][colNum])) {
         res.push(twoDArr[i][colNum]);
       }
     }
@@ -17,7 +21,12 @@ export const getCol = (twoDArr, colNum) => {
 }
 
 export const convertCsvTo2DArray = (content) => {
-  return content ? content.split("\n").map(function (row) { return row.split(","); }) : [];
+  try {
+    return content ? content.split("\n").map(function (row) { return row.split(","); }) : [];
+  } catch (e) {
+    print(e);
+    return [];
+  }
 }
 
 export const convertStrToArr = (str) => {
