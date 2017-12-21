@@ -12,7 +12,7 @@ export const getCol = (twoDArr, colNum) => {
   let res = [];
   for(let i = 0; i < twoDArr.length; i++) {
     if (colNum < twoDArr[i].length) {
-      if (!isNaN(twoDArr[i][colNum])) {
+      if (twoDArr[i][colNum] && !isNaN(twoDArr[i][colNum])) {
         res.push(twoDArr[i][colNum]);
       }
     }

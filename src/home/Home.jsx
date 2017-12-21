@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, FormGroup, PanelGroup } from 'react-bootstrap';
+import { ControlLabel, Grid, Form, FormControl, FormGroup, PanelGroup } from 'react-bootstrap';
 import { compose, withState, withHandlers } from 'recompose';
 
 import { convertCsvTo2DArray, readFile, getCol } from '../data/FileService.js';
@@ -46,12 +46,12 @@ const Component = (props) => {
   const { b1, b2, b3, b4, b5, b6, b7, onChange, onClick } = props;
   return (
     <Grid fluid={true}>
-      <Form>
+      <form>
         <FormGroup>
-          <label>选择文件</label>
-          <input type="file" id="input" accept='.csv' onChange={onChange} onClick={onClick}/>
+          <ControlLabel>选择文件</ControlLabel>
+          <input className="form-control" type="file" id="input" accept='.csv' onChange={onChange} onClick={onClick} />
         </FormGroup>
-      </Form>
+      </form>
       <PanelGroup>
         <BallData b={b1} header="1号球" eventKey={1}/>
         <BallData b={b2} header="2号球" eventKey={2}/>
