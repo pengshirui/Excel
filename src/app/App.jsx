@@ -19,7 +19,7 @@ export const App = () => {
         <Row className="clearfix">
           <Col sm={12} style={margin}>
             <Nav bsStyle="tabs" justified={true}>
-              <NavItem eventKey={0}>主页</NavItem>
+              <NavItem eventKey={0} >文件</NavItem>
               <NavItem eventKey={1} >大小</NavItem>
               <NavItem eventKey={2} >质和</NavItem>
               <NavItem eventKey={3} >3</NavItem>
