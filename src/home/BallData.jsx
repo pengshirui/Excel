@@ -3,7 +3,7 @@ import { Panel } from 'react-bootstrap';
 
 const wStyle = {
   width: '100%',
-  overflowX: 'scroll',
+  overflowX: 'auto',
 };
 
 export const BallData = (props) => {
