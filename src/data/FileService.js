@@ -7,7 +7,11 @@ export const readFile = (path) => {
 export const getCol = (twoDArr, colNum) => {
   let res = [];
   for(let i = 0; i < twoDArr.length; i++) {
-    res.push(twoDArr[i][colNum]);
+    if (colNum < twoDArr[i].length) {
+      if (twoDArr[i][colNum]) {
+        res.push(twoDArr[i][colNum]);
+      }
+    }
   }
   return res;
 }

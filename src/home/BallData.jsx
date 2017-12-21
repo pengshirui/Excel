@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, SafeAnchor } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 
 const wStyle = {
   width: '100%',
@@ -12,9 +12,7 @@ export const BallData = (props) => {
   const stytle = bsStyle ? bsStyle : "danger";
   return (
     <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={stytle}>
-      <SafeAnchor>
-        <div style={wStyle}>{content}</div>
-      </SafeAnchor>
+      <div style={wStyle}>{content}</div>
     </Panel>
   );
 }

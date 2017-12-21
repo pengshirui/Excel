@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row, Grid, Tab, Nav, NavItem } from 'react-bootstrap';
 
-import { GreateLess } from '../func/GreatLess.jsx';
+import { Function } from '../func/Function.jsx';
 import { Home } from '../home/Home.jsx';
 
 const style = {
@@ -21,7 +21,7 @@ export const App = () => {
             <Nav bsStyle="tabs" justified={true}>
               <NavItem eventKey={0}>主页</NavItem>
               <NavItem eventKey={1} >大小</NavItem>
-              <NavItem eventKey={2} >2</NavItem>
+              <NavItem eventKey={2} >质和</NavItem>
               <NavItem eventKey={3} >3</NavItem>
               <NavItem eventKey={4} >4</NavItem>
               <NavItem eventKey={5} >5</NavItem>
@@ -35,25 +35,25 @@ export const App = () => {
                 <Home />
               </Tab.Pane>
               <Tab.Pane eventKey={1}>
-                <GreateLess />
+                <Function header="大小"/>
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
-                Tab 2 content
+                <Function header="质和"/>
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
-                Tab 3 content
+                <Function />
               </Tab.Pane>
               <Tab.Pane eventKey={4}>
-                Tab 4 content
+                <Function />
               </Tab.Pane>
               <Tab.Pane eventKey={5}>
-                Tab 5 content
+                <Function />
               </Tab.Pane>
               <Tab.Pane eventKey={6}>
-                Tab 6 content
+                <Function />
               </Tab.Pane>
               <Tab.Pane eventKey={7}>
-                Tab 7 content
+                <Function />
               </Tab.Pane>
             </Tab.Content>
           </Col>
