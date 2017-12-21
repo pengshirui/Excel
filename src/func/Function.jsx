@@ -7,17 +7,17 @@ import { convertStrToArr } from '../data/FileService.js';
 import { FieldGroup } from '../func/FieldGroup.jsx';
 
 const enhance = compose(
-  withState("content", "setContent", ""),
+  withState("data", "setData", ""),
   withState("args", "setArgs", ""),
   withState("result", "setResult", ""),
   withHandlers({
-    updateContent: ({setContent}) => (event) => {
-      setContent(event.target.value);
+    updateData: ({setData}) => (event) => {
+      setData(event.target.value);
     },
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({content, args, setResult}) => () => {
+    submit: ({data, args, setResult}) => () => {
       const arr = convertStrToArr(args);
       // add aglorithm here
       setResult(arr);
@@ -26,12 +26,12 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const {header, result, args, content, updateArgs, updateContent, submit} = props;
+  const {header, result, args, data, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args) || !regex.test(content);
   return (
     <Grid fluid={true}>
-      <FieldGroup label="数据" onChange={updateContent}/>
+      <FieldGroup label="数据" onChange={updateData}/>
       <FieldGroup label="参数" onChange={updateArgs}/>
       <FormGroup>
         <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
