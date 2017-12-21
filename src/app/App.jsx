@@ -19,8 +19,8 @@ export const App = () => {
         <Row className="clearfix">
           <Col sm={12} style={margin}>
             <Nav bsStyle="tabs" justified={true}>
-              <NavItem eventKey={0}>Home</NavItem>
-              <NavItem eventKey={1} >1</NavItem>
+              <NavItem eventKey={0}>主页</NavItem>
+              <NavItem eventKey={1} >大小</NavItem>
               <NavItem eventKey={2} >2</NavItem>
               <NavItem eventKey={3} >3</NavItem>
               <NavItem eventKey={4} >4</NavItem>

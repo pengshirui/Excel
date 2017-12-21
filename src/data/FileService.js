@@ -15,3 +15,7 @@ export const getCol = (twoDArr, colNum) => {
 export const convertCsvTo2DArray = (content) => {
   return content ? content.split("\n").map(function (row) { return row.split(","); }) : [];
 }
+
+export const convertStrToArr = (str) => {
+  return str ? str.split(",") : [];
+}
