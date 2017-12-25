@@ -14,11 +14,11 @@ export const convertStrToArr = (str) => {
 }
 
 export const checkPattern = (arr, patternArr) => {
-	let result = [];
-	let num = patternArr.length;
-	let firstNum = patternArr[0];
-	outer:
-    for (let i = 0; i < arr.length - num; i++) {
+  let result = [];
+  let num = patternArr.length;
+  let firstNum = patternArr[0];
+  outer:
+  for (let i = 0; i < arr.length - num; i++) {
     	for (let j = 0; j < num; j++) {
     		if (arr[i + j] != patternArr[j]) {
     			continue outer;
@@ -30,20 +30,20 @@ export const checkPattern = (arr, patternArr) => {
     			i = i + num - 1;
     		}
     	}
-    }
-    return result;
+  }
+  return result;
 }
 
 export const convertToBigSmall = (rawArr, pivot) => {
-	let result = [];
-	for (let i = 0; i < rawArr.length; i++) {
-		(rawArr[i] >= pivot) ? result.push(1) : result.push(0);
-	}
-	return result;
+  let result = [];
+  for (let i = 0; i < rawArr.length; i++) {
+    (rawArr[i] >= pivot) ? result.push(1) : result.push(0);
+  }
+  return result;
 }
 
 export const convertPrimeNum = (rawArr) => {
-
+  return 3;
 }
 
 
