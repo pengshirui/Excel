@@ -3,24 +3,29 @@ import { Button, ControlLabel, Grid, PanelGroup, FormGroup, FormControl, HelpBlo
 import { compose, withState, withHandlers } from 'recompose';
 
 import { BallData } from '../home/BallData.jsx';
-import { convertStrToArr } from '../data/FileService.js';
-import { FieldGroup } from '../func/FieldGroup.jsx';
+import { convertStrToArr, convertToBigSmall, checkPattern } from '../data/PatternService.js';
+import { FieldGroup } from '../tab/FieldGroup.jsx';
+
 
 const enhance = compose(
   withState("data", "setData", ""),
   withState("args", "setArgs", ""),
   withState("result", "setResult", ""),
   withHandlers({
-    updateData: ({setData}) => (event) => {
+    updateData: (props) => (event) => {
+      const {setData} = props;
       setData(event.target.value);
     },
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
     },
     submit: ({data, args, setResult}) => () => {
-      const arr = convertStrToArr(args);
+      const dataArr = convertStrToArr(data);
+      const patternArr = convertStrToArr(args);
+      const covertedDataArr = convertToBigSmall(dataArr, 3);
+      const result = checkPattern(covertedDataArr, patternArr);
       // add aglorithm here
-      setResult(arr);
+      setResult(result);
     }
   })
 );
@@ -54,4 +59,4 @@ const component = (props) => {
   );
 }
 
-export const Function = enhance(component);
+export const Tab = enhance(component);

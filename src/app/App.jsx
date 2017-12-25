@@ -1,8 +1,9 @@
 import React from 'react';
 import { Col, Row, Grid, Tab, Nav, NavItem } from 'react-bootstrap';
 
-import { Function } from '../func/Function.jsx';
+import { Tab as FuncTab } from '../tab/Tab.jsx';
 import { Home } from '../home/Home.jsx';
+import { convertToBigSmall } from '../data/PatternService.js';
 
 const style = {
   overflowX: 'hidden',
@@ -35,25 +36,25 @@ export const App = () => {
                 <Home />
               </Tab.Pane>
               <Tab.Pane eventKey={1}>
-                <Function header="大小"/>
+                <FuncTab header="大小" convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
-                <Function header="质和"/>
+                <FuncTab header="质和" convert={convertToBigSmall}/>
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
-                <Function />
+                <FuncTab />
               </Tab.Pane>
               <Tab.Pane eventKey={4}>
-                <Function />
+                <FuncTab />
               </Tab.Pane>
               <Tab.Pane eventKey={5}>
-                <Function />
+                <FuncTab />
               </Tab.Pane>
               <Tab.Pane eventKey={6}>
-                <Function />
+                <FuncTab />
               </Tab.Pane>
               <Tab.Pane eventKey={7}>
-                <Function />
+                <FuncTab />
               </Tab.Pane>
             </Tab.Content>
           </Col>

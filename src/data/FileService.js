@@ -19,16 +19,3 @@ export const getCol = (twoDArr, colNum) => {
   }
   return res;
 }
-
-export const convertCsvTo2DArray = (content) => {
-  try {
-    return content ? content.split("\n").map(function (row) { return row.split(","); }) : [];
-  } catch (e) {
-    print(e);
-    return [];
-  }
-}
-
-export const convertStrToArr = (str) => {
-  return str ? str.split(",") : [];
-}
