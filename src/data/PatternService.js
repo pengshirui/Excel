@@ -43,7 +43,7 @@ export const convertToBigSmall = (rawArr, pivot) => {
 }
 
 export const convertPrimeNum = (rawArr) => {
-  return 3;
+  return [];
 }
 
 
