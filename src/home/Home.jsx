@@ -1,8 +1,8 @@
 import React from 'react';
-import { ControlLabel, Grid, Form, FormControl, FormGroup, PanelGroup } from 'react-bootstrap';
+import { ControlLabel, Grid, FormGroup, PanelGroup } from 'react-bootstrap';
 import { compose, withState, withHandlers } from 'recompose';
 
-import { convertCsvTo2DArray, readFile, getCol } from '../data/FileService.js';
+import { getCol, readCsvAs2DArr } from '../data/FileService.js';
 import { BallData } from '../home/BallData.jsx';
 
 const enhance = compose(
@@ -18,8 +18,7 @@ const enhance = compose(
     onChange: props => event => {
       if (event.target.files[0]) {
         props.setFilePath(event.target.files[0].path);
-        const content = readFile(event.target.files[0].path);
-        const twoDArr = convertCsvTo2DArray(content);
+        const twoDArr = readCsvAs2DArr(props.filePath);
         const col0 = getCol(twoDArr, 0);
         const col1 = getCol(twoDArr, 1);
         const col2 = getCol(twoDArr, 2);
