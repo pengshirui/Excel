@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ControlLabel, Grid, PanelGroup, FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
+import { Button, Grid, PanelGroup, FormGroup } from 'react-bootstrap';
 import { compose, withState, withHandlers } from 'recompose';
 
 import { BallData } from '../home/BallData.jsx';
@@ -10,6 +10,7 @@ import { FieldGroup } from '../tab/FieldGroup.jsx';
 const enhance = compose(
   withState("data", "setData", ""),
   withState("args", "setArgs", ""),
+  withState("pivot", "setPivot", ""),
   withState("result", "setResult", ""),
   withHandlers({
     updateData: (props) => (event) => {
@@ -19,10 +20,13 @@ const enhance = compose(
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({data, args, setResult}) => () => {
+    updatePivot: ({setPivot}) => (event) => {
+      setPivot(event.target.value);
+    },
+    submit: ({data, args, setResult, pivot}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const covertedDataArr = convertToBigSmall(dataArr, 3);
+      const covertedDataArr = convertToBigSmall(dataArr, parseInt(pivot));
       const result = checkPattern(covertedDataArr, patternArr);
       // add aglorithm here
       setResult(result);
@@ -40,14 +44,15 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {header, result, args, data, updateArgs, updateData, submit} = props;
+  const {header, result, args, data, pivot, updatePivot, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args) || !regex.test(data);
   return (
     <Grid fluid={true}>
       <form>
-        <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)}/>
-        <FieldGroup label="参数" onChange={updateArgs} validationState={getValidationState(args)}/>       
+        <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} tip="数字用逗号分割" />
+        <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} tip="数字用逗号分割"/> 
+        <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} />       
         <FormGroup>
           <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
         </FormGroup>
