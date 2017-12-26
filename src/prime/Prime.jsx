@@ -3,15 +3,16 @@ import { checkPattern, convertStrToArr, convertToBigSmall } from '../data/Patter
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import React from 'react';
 
 const enhance = compose(
   withState("data", "setData", ""),
-  withState("binaryData", "setBinaryData", ""),
   withState("args", "setArgs", ""),
   withState("pivot", "setPivot", ""),
   withState("result", "setResult", ""),
   withHandlers({
-    updateData: ({setData}) => (event) => {
+    updateData: (props) => (event) => {
+      const {setData} = props;
       setData(event.target.value);
     },
     updateArgs: ({setArgs}) => (event) => {
@@ -20,12 +21,11 @@ const enhance = compose(
     updatePivot: ({setPivot}) => (event) => {
       setPivot(event.target.value);
     },
-    submit: ({data, args, setResult, setBinaryData, pivot}) => () => {
+    submit: ({data, args, setResult, pivot}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToBigSmall(dataArr, parseInt(pivot));
-      setBinaryData(bData);
-      const result = checkPattern(bData, patternArr);
+      const covertedDataArr = convertToBigSmall(dataArr, parseInt(pivot));
+      const result = checkPattern(covertedDataArr, patternArr);
       // add aglorithm here
       setResult(result);
     }
@@ -42,27 +42,24 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {header, result, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, submit} = props;
+  const {header, result, args, data, pivot, updatePivot, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args) || !regex.test(data);
   return (
     <Grid fluid={true}>
       <form>
         <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} tip="数字用逗号分割" />
-        <PanelGroup>
-          <BallData b={binaryData} header="二进制数据" eventKey={0} bsStyle="success"/>
-        </PanelGroup>
         <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} tip="数字用逗号分割"/> 
         <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} />       
         <FormGroup>
           <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
         </FormGroup>
         <PanelGroup>
-          <BallData b={result} header={header} eventKey={0} bsStyle="success"/>
+          <BallData b={result} header={header} eventKey={0}/>
         </PanelGroup>
       </form>
     </Grid>
   );
 }
 
-export const Pivot = enhance(component);
+export const Prime = enhance(component);

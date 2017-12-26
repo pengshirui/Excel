@@ -1,17 +1,16 @@
-import React from 'react';
-import { Col, Row, Grid, Tab, Nav, NavItem } from 'react-bootstrap';
-
-import { convertToBigSmall } from '../data/PatternService.js';
-import { Home } from '../home/Home.jsx';
-import { Pivot as PivotTab } from '../pivot/Pivot.jsx'
+import { Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { Tab as FuncTab } from '../share/Tab.jsx';
+import { Home as HomeTab } from '../home/Home.jsx';
+import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
+import React from 'react';
+import { convertToBigSmall } from '../data/PatternService.js';
 
 const style = {
   overflowX: 'hidden',
 };
 
 const margin = {
-  marginBottom: '15px' 
+  marginBottom: '15px'
 }
 
 export const App = () => {
@@ -34,13 +33,13 @@ export const App = () => {
           <Col sm={12}>
             <Tab.Content animation>
               <Tab.Pane eventKey={0}>
-                <Home />
+                <HomeTab />
               </Tab.Pane>
               <Tab.Pane eventKey={1}>
                 <PivotTab header="大小" convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
-                <FuncTab header="质和" convert={convertToBigSmall}/>
+                <FuncTab header="质和" convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
                 <FuncTab />

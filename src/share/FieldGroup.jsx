@@ -1,5 +1,5 @@
+import { ControlLabel, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
 export const FieldGroup = ({ tip, label, validationState, ...props }) => {
   return (

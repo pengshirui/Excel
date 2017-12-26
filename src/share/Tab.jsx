@@ -1,11 +1,9 @@
-import React from 'react';
-import { Button, Grid, PanelGroup, FormGroup } from 'react-bootstrap';
-import { compose, withState, withHandlers } from 'recompose';
-
+import { Button, FormGroup, Grid, PanelGroup } from 'react-bootstrap';
+import { checkPattern, convertStrToArr, convertToBigSmall } from '../data/PatternService.js';
+import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
-import { convertStrToArr, convertToBigSmall, checkPattern } from '../data/PatternService.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
-
+import React from 'react';
 
 const enhance = compose(
   withState("data", "setData", ""),

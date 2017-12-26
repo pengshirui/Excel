@@ -4,6 +4,7 @@
     "private": true,
     "main": "main.js",
     "scripts": {
+        "validate": "eslint -c .eslintrc.json . --fix",
         "compile": "webpack --progress --display-error-details",
         "build": "yarn compile && cp src/root/index.html dist/index.html && cp src/main.js dist/main.js",
         "package": "cp package.json dist/package.json && electron-packager ./dist lottery --arch=x64 --out=out --platform=win32 --overwrite",
