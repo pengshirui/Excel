@@ -11,8 +11,7 @@ const enhance = compose(
   withState("pivot", "setPivot", ""),
   withState("result", "setResult", ""),
   withHandlers({
-    updateData: (props) => (event) => {
-      const {setData} = props;
+    updateData: ({setData}) => (event) => {
       setData(event.target.value);
     },
     updateArgs: ({setArgs}) => (event) => {
