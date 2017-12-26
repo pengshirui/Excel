@@ -10,7 +10,7 @@ export const BallData = (props) => {
   const { b, header, eventKey, bsStyle } = props;
   const content = b ? b.join() : undefined;
   return (
-    <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={bsStyle}>
+    <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={bsStyle} defaultExpanded={true} >
       <div style={wStyle}>{content}</div>
     </Panel>
   );
