@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { Tab as FuncTab } from '../share/Tab.jsx';
 import { Home as HomeTab } from '../home/Home.jsx';
 import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
-import React from 'react';
+import { Prime as PrimeTab } from '../prime/Prime.jsx';
 import { convertToBigSmall } from '../data/PatternService.js';
 
 const style = {
@@ -39,7 +40,7 @@ export const App = () => {
                 <PivotTab header="大小" convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
-                <FuncTab header="质和" convert={convertToBigSmall} />
+                <PrimeTab header="质和" convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
                 <FuncTab />
