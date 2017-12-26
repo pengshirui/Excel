@@ -1,5 +1,5 @@
-import React from 'react';
 import { Panel } from 'react-bootstrap';
+import React from 'react';
 
 const wStyle = {
   width: '100%',

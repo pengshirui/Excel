@@ -1,9 +1,8 @@
-import React from 'react';
-import { ControlLabel, Grid, FormGroup, PanelGroup } from 'react-bootstrap';
-import { compose, withState, withHandlers } from 'recompose';
-
+import { ControlLabel, FormGroup, Grid, PanelGroup } from 'react-bootstrap';
+import { compose, withHandlers, withState } from 'recompose';
 import { getCol, readCsvAs2DArr } from '../data/FileService.js';
 import { BallData } from '../share/BallData.jsx';
+import React from 'react';
 
 const enhance = compose(
   withState('b1', 'setB1', []),
