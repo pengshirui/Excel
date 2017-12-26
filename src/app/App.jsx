@@ -4,7 +4,6 @@ import { Tab as FuncTab } from '../share/Tab.jsx';
 import { Home as HomeTab } from '../home/Home.jsx';
 import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
-import { convertToBigSmall } from '../data/PatternService.js';
 
 const style = {
   overflowX: 'hidden',
@@ -37,10 +36,10 @@ export const App = () => {
                 <HomeTab />
               </Tab.Pane>
               <Tab.Pane eventKey={1}>
-                <PivotTab convert={convertToBigSmall} />
+                <PivotTab />
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
-                <PrimeTab convert={convertToBigSmall} />
+                <PrimeTab />
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
                 <FuncTab />

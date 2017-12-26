@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
-import { checkPattern, convertStrToArr, convertToBigSmall } from '../data/PatternService.js';
+import { checkPattern, convertStrToArr, getRawDataWithPattern } from '../data/PatternService.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { convertToBigSmall } from '../pivot/Convert.js';
 
 const enhance = compose(
   withState("data", "setData", ""),
@@ -11,6 +12,7 @@ const enhance = compose(
   withState("args", "setArgs", ""),
   withState("pivot", "setPivot", ""),
   withState("result", "setResult", ""),
+  withState("resultRawData", "setResultRawData", ""),
   withHandlers({
     updateData: ({setData}) => (event) => {
       setData(event.target.value);
@@ -21,13 +23,14 @@ const enhance = compose(
     updatePivot: ({setPivot}) => (event) => {
       setPivot(event.target.value);
     },
-    submit: ({data, args, setResult, setBinaryData, pivot}) => () => {
+    submit: ({data, args, setResult, setBinaryData, setResultRawData, pivot}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
       const bData = convertToBigSmall(dataArr, parseInt(pivot));
       setBinaryData(bData);
       const result = checkPattern(bData, patternArr);
-      // add aglorithm here
+      const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
+      setResultRawData(bRawData);
       setResult(result);
     }
   })
@@ -43,7 +46,7 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {result, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, submit} = props;
+  const {result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args) || !regex.test(data);
   return (
@@ -65,6 +68,7 @@ const component = (props) => {
         <Col xs={6}>
           <PanelGroup>
             <BallData b={result} header="结果" eventKey={0} bsStyle="success"/>
+            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="success"/>
           </PanelGroup>
         </Col>
       </Row>
