@@ -18,7 +18,7 @@ const enhance = compose(
     onChange: props => event => {
       if (event.target.files[0]) {
         props.setFilePath(event.target.files[0].path);
-        const twoDArr = readCsvAs2DArr(props.filePath);
+        const twoDArr = readCsvAs2DArr(event.target.files[0].path);
         const col0 = getCol(twoDArr, 0);
         const col1 = getCol(twoDArr, 1);
         const col2 = getCol(twoDArr, 2);
