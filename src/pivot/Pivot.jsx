@@ -43,7 +43,7 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {header, result, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, submit} = props;
+  const {result, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args) || !regex.test(data);
   return (
@@ -59,7 +59,7 @@ const component = (props) => {
           <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
         </FormGroup>
         <PanelGroup>
-          <BallData b={result} header={header} eventKey={0} bsStyle="success"/>
+          <BallData b={result} header="结果" eventKey={0} bsStyle="success"/>
         </PanelGroup>
       </form>
     </Grid>

@@ -37,10 +37,10 @@ export const App = () => {
                 <HomeTab />
               </Tab.Pane>
               <Tab.Pane eventKey={1}>
-                <PivotTab header="大小" convert={convertToBigSmall} />
+                <PivotTab convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
-                <PrimeTab header="质和" convert={convertToBigSmall} />
+                <PrimeTab convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
                 <FuncTab />
