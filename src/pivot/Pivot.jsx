@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
-import { checkPattern, convertStrToArr, getRawDataWithPattern } from '../data/PatternService.js';
+import { checkPattern, convertStrToArr, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
