@@ -3,7 +3,7 @@ import { ControlLabel, Grid, FormGroup, PanelGroup } from 'react-bootstrap';
 import { compose, withState, withHandlers } from 'recompose';
 
 import { getCol, readCsvAs2DArr } from '../data/FileService.js';
-import { BallData } from '../home/BallData.jsx';
+import { BallData } from '../share/BallData.jsx';
 
 const enhance = compose(
   withState('b1', 'setB1', []),
@@ -52,12 +52,12 @@ const Component = (props) => {
         </FormGroup>
       </form>
       <PanelGroup>
-        <BallData b={b1} header="1号球" eventKey={1}/>
-        <BallData b={b2} header="2号球" eventKey={2}/>
-        <BallData b={b3} header="3号球" eventKey={3}/>
-        <BallData b={b4} header="4号球" eventKey={4}/>
-        <BallData b={b5} header="5号球" eventKey={5}/>
-        <BallData b={b6} header="6号球" eventKey={6}/>
+        <BallData b={b1} header="1号球" eventKey={1} bsStyle="success" />
+        <BallData b={b2} header="2号球" eventKey={2} bsStyle="success" />
+        <BallData b={b3} header="3号球" eventKey={3} bsStyle="success" />
+        <BallData b={b4} header="4号球" eventKey={4} bsStyle="success" />
+        <BallData b={b5} header="5号球" eventKey={5} bsStyle="success" />
+        <BallData b={b6} header="6号球" eventKey={6} bsStyle="success" />
         <BallData b={b7} header="7号球" eventKey={7} bsStyle="primary"/>
       </PanelGroup>
     </Grid>

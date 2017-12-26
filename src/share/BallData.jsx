@@ -9,9 +9,8 @@ const wStyle = {
 export const BallData = (props) => {
   const { b, header, eventKey, bsStyle } = props;
   const content = b ? b.join() : undefined;
-  const stytle = bsStyle ? bsStyle : "danger";
   return (
-    <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={stytle}>
+    <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={bsStyle}>
       <div style={wStyle}>{content}</div>
     </Panel>
   );

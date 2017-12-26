@@ -1,9 +1,10 @@
 import React from 'react';
 import { Col, Row, Grid, Tab, Nav, NavItem } from 'react-bootstrap';
 
-import { Tab as FuncTab } from '../tab/Tab.jsx';
-import { Home } from '../home/Home.jsx';
 import { convertToBigSmall } from '../data/PatternService.js';
+import { Home } from '../home/Home.jsx';
+import { Pivot as PivotTab } from '../pivot/Pivot.jsx'
+import { Tab as FuncTab } from '../share/Tab.jsx';
 
 const style = {
   overflowX: 'hidden',
@@ -36,7 +37,7 @@ export const App = () => {
                 <Home />
               </Tab.Pane>
               <Tab.Pane eventKey={1}>
-                <FuncTab header="大小" convert={convertToBigSmall} />
+                <PivotTab header="大小" convert={convertToBigSmall} />
               </Tab.Pane>
               <Tab.Pane eventKey={2}>
                 <FuncTab header="质和" convert={convertToBigSmall}/>
