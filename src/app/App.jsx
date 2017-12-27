@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
+import { ColdWarmHot as ColdWarmHotTab } from '../coldWarmHot/ColdWarmHot.jsx';
 import { FirstRoute as FirstRouteTab } from '../firstRoute/FirstRoute.jsx';
 import { Tab as FuncTab } from '../share/Tab.jsx';
 import { Home as HomeTab } from '../home/Home.jsx';
@@ -9,6 +10,7 @@ import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
 import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
+
 
 
 const style = {
@@ -64,7 +66,7 @@ export const App = () => {
                 <SecondRouteTab />
               </Tab.Pane>
               <Tab.Pane eventKey={8}>
-                <SecondRouteTab />
+                <ColdWarmHotTab />
               </Tab.Pane>
             </Tab.Content>
           </Col>
