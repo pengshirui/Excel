@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Button, Checkbox, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
+import { convertStrToArr, convertTwoDArrToOptions } from '../util/Array.js';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { Typeahead } from '../share/Typeahdead.jsx';
-import { convertStrToArr } from '../util/Array.js';
 import { convertToBigSmall } from '../pivot/Convert.js';
 
 const getValidationState = (args) => {
@@ -53,20 +53,22 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const { result, resultRawData, args, data, pivot, csv, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
+  const { result, resultRawData, args, data, pivot, csv, binaryData, setData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
   const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error';
+  const options = convertTwoDArrToOptions(csv);
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={6}>
           <form>
             <Typeahead
-              csv={csv}
+              options={options}
               label="数据"
               onSelectChange={updateData}
               onInputChange={updateDataByText}
               validationState={getValidationState(data)}
               placeholder="预选或者数字用逗号分割"
+              setData={setData}
             />
             <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字" />
             <PanelGroup>

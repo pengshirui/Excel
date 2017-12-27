@@ -2,20 +2,19 @@ import * as React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { Checkbox, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
 import { Typeahead as T } from 'react-bootstrap-typeahead';
-import { convertTwoDArrToOptions } from '../util/Array.js';
 
 const enhance = compose(
   withState("checkBox", "setCheckBox", false),
   withHandlers({
-    updateCheckBox: ({ checkBox, setCheckBox }) => () => {
+    updateCheckBox: ({ checkBox, setCheckBox, setData }) => () => {
       setCheckBox(!checkBox);
+      setData("");
     }
   })
 )
 
 const component = (props) => {
-  const { csv, checkBox, label, validationState, updateCheckBox, onSelectChange, onInputChange, placeholder } = props;
-  const options = convertTwoDArrToOptions(csv);
+  const { options, checkBox, label, validationState, updateCheckBox, onSelectChange, onInputChange, placeholder } = props;
   let input;
   if (checkBox) {
     input = (
