@@ -46,9 +46,9 @@ const enhance = compose(
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
       const bData = convertToBigSmall(dataArr, parseInt(pivot));
-      setBinaryData(bData);
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
+      setBinaryData(bData);
       setResultRawData(bRawData);
       setResult(result);
     }

@@ -14,7 +14,7 @@ export const Typeahead = (props) => {
         multiple={false}
         options={options}
         labelKey="label"
-        emptyLabel="未导入csv文件"
+        emptyLabel="未导入csv文件或者未找到匹配"
         {...rest}
       />
       <FormControl.Feedback />
