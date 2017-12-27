@@ -6,19 +6,18 @@ import { Typeahead as T } from 'react-bootstrap-typeahead';
 const enhance = compose(
   withState("checkBox", "setCheckBox", false),
   withHandlers({
-    updateCheckBox: ({ checkBox, setCheckBox, setData }) => () => {
+    updateCheckBox: ({ checkBox, setCheckBox }) => () => {
       setCheckBox(!checkBox);
-      setData("");
     }
   })
 )
 
 const component = (props) => {
-  const { options, checkBox, label, validationState, updateCheckBox, onSelectChange, onInputChange, placeholder } = props;
+  const { data, options, checkBox, label, validationState, updateCheckBox, onSelectChange, onInputChange, placeholder } = props;
   let input;
   if (checkBox) {
     input = (
-      <FormControl onChange={onInputChange} placeholder={placeholder} />
+      <FormControl onChange={onInputChange} placeholder={placeholder} value={data} />
     )
   } else {
     input = (

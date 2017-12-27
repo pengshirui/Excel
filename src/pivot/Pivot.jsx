@@ -53,7 +53,7 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const { result, resultRawData, args, data, pivot, csv, binaryData, setData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
+  const { result, resultRawData, args, data, pivot, csv, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
   const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error';
   const options = convertTwoDArrToOptions(csv);
   return (
@@ -64,11 +64,11 @@ const component = (props) => {
             <Typeahead
               options={options}
               label="数据"
+              placeholder="预选或者数字用逗号分割"
               onSelectChange={updateData}
               onInputChange={updateDataByText}
               validationState={getValidationState(data)}
-              placeholder="预选或者数字用逗号分割"
-              setData={setData}
+              data={data}
             />
             <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字" />
             <PanelGroup>
