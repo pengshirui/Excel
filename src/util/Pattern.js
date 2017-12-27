@@ -1,9 +1,3 @@
-export const convertStrToArr = (str) => {
-  let arr = str ? str.split(",") : [];
-  let numArr = arr.map(Number)
-  return numArr;
-}
-
 export const checkPattern = (arr, patternArr) => {
   let result = [];
   let num = patternArr.length;

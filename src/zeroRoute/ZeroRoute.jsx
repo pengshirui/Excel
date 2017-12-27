@@ -51,11 +51,11 @@ const component = (props) => {
       <Row>
         <Col xs={6}>
           <form>
-            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} tip="数字用逗号分割" />  
+            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" />  
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据 （零路为1，其他为0）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
-            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} tip="数字用逗号分割"/>      
+            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
             <FormGroup>
               <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
             </FormGroup>

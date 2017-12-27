@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, Panel, PanelGroup } from 'react-bootstrap';
 import { BallData } from '../share/BallData.jsx';
-import { getCol } from '../util/File.js';
+import { getCol } from '../util/Array.js';
 
 export const Home = (props) => {
   const { data, path} = props;

@@ -33,24 +33,20 @@ const content = {
 
 }
 
-const tab = {
-  overflowX: 'hidden',
-};
-
 const margin = {
   marginTop: '15px'
 }
 
 
 const enhance = compose(
-  withState('data', 'setData', []),
+  withState('csv', 'setCsv', []),
   withState('filePath', 'setFilePath', ''),
   withHandlers({
     onChange: props => event => {
       if (event.target.files[0]) {
         props.setFilePath(event.target.files[0].path);
         const twoDArr = readCsvAs2DArr(event.target.files[0].path);
-        props.setData(twoDArr);
+        props.setCsv(twoDArr);
       }
     },
     onClick: () => event => {
@@ -60,7 +56,7 @@ const enhance = compose(
 )
 
 const component = (props) => {
-  const { data, filePath, onChange, onClick } = props;
+  const { csv, filePath, onChange, onClick } = props;
   return (
     <Grid fluid={true}>
       <div style={sideBar}>
@@ -86,31 +82,31 @@ const component = (props) => {
               </Nav>
               <Tab.Content animation style={margin}>
                 <Tab.Pane eventKey={0}>
-                  <HomeTab data={data} path={filePath}/>
+                  <HomeTab csv={csv} path={filePath}/>
                 </Tab.Pane>
                 <Tab.Pane eventKey={1}>
-                  <PivotTab data={data} />
+                  <PivotTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={2}>
-                  <PrimeTab data={data} />
+                  <PrimeTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={3}>
-                  <OddEvenTab data={data} />
+                  <OddEvenTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={4}>
-                  <OriginTab data={data} />
+                  <OriginTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={5}>
-                  <ZeroRouteTab data={data} />
+                  <ZeroRouteTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={6}>
-                  <FirstRouteTab data={data} />
+                  <FirstRouteTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={7}>
-                  <SecondRouteTab data={data} />
+                  <SecondRouteTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={8}>
-                  <ColdWarmHotTab data={data} />
+                  <ColdWarmHotTab csv={csv} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

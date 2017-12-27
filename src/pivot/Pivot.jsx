@@ -1,10 +1,21 @@
 import * as React from 'react';
 import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
-import { checkPattern, convertStrToArr, getRawDataWithPattern } from '../util/Pattern.js';
+import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { Typeahead } from '../share/Typeahdead.jsx';
+import { convertStrToArr } from '../util/Array.js';
 import { convertToBigSmall } from '../pivot/Convert.js';
+
+const getValidationState = (args) => {
+  const regex = /^\d+(,\d+)*$/;
+  if (!regex.test(args)) {
+    return 'error';
+  } else {
+    return 'success';
+  }
+}
 
 const enhance = compose(
   withState("data", "setData", ""),
@@ -14,8 +25,16 @@ const enhance = compose(
   withState("result", "setResult", ""),
   withState("resultRawData", "setResultRawData", ""),
   withHandlers({
-    updateData: ({setData}) => (event) => {
-      setData(event.target.value);
+    updateData: ({setData}) => (selected) => {
+      if (selected && selected[0] && selected[0].id) {
+        setData(selected[0].id);
+      }
+    },
+    updateDataByText: ({setData}) => (text) => {
+      // filter out labels
+      if (!text.includes("号球")) {
+        setData(text);
+      }
     },
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
@@ -36,30 +55,27 @@ const enhance = compose(
   })
 );
 
-const getValidationState = (args) => {
-  const regex = /^\d+(,\d+)*$/;
-  if (!regex.test(args)) {
-    return 'error';
-  } else {
-    return 'success';
-  }
-}
-
 const component = (props) => {
-  const {result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, submit} = props;
-  const regex = /^\d+(,\d+)*$/;
-  const disabled = !regex.test(args) || !regex.test(data);
+  const {result, resultRawData, args, data, pivot, csv, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit} = props;
+  const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error';
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={6}>
           <form>
-            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} tip="数字用逗号分割" />
-            <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} />  
+            <Typeahead 
+              csv={csv} 
+              label="数据" 
+              onChange={updateData}
+              onInputChange={updateDataByText}
+              validationState={getValidationState(data)} 
+              placeholder="预选或者数字用逗号分割"
+            />
+            <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字"/>  
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据（大于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
-            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} tip="数字用逗号分割"/>      
+            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
             <FormGroup>
               <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
             </FormGroup>
