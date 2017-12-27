@@ -38,7 +38,7 @@ const tab = {
 };
 
 const margin = {
-  marginBottom: '15px'
+  marginTop: '15px'
 }
 
 
@@ -60,7 +60,7 @@ const enhance = compose(
 )
 
 const component = (props) => {
-  const { data, onChange, onClick } = props;
+  const { data, filePath, onChange, onClick } = props;
   return (
     <Grid fluid={true}>
       <div style={sideBar}>
@@ -72,7 +72,7 @@ const component = (props) => {
       <div style={content}>
         <Tab.Container id="tabs-with-dropdown" defaultActiveKey={0}>
           <Row className="clearfix">
-            <Col sm={12} style={margin}>
+            <Col sm={12}>
               <Nav bsStyle="tabs" justified={true}>
                 <NavItem eventKey={0} >文件</NavItem>
                 <NavItem eventKey={1} >大小</NavItem>
@@ -84,9 +84,9 @@ const component = (props) => {
                 <NavItem eventKey={7} >二路</NavItem>
                 <NavItem eventKey={8} >冷温热</NavItem>
               </Nav>
-              <Tab.Content animation>
+              <Tab.Content animation style={margin}>
                 <Tab.Pane eventKey={0}>
-                  <HomeTab data={data} />
+                  <HomeTab data={data} path={filePath}/>
                 </Tab.Pane>
                 <Tab.Pane eventKey={1}>
                   <PivotTab data={data} />

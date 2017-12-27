@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Grid, PanelGroup } from 'react-bootstrap';
+import { Grid, Panel, PanelGroup } from 'react-bootstrap';
 import { BallData } from '../share/BallData.jsx';
 import { getCol } from '../util/File.js';
 
 export const Home = (props) => {
-  const { data } = props;
+  const { data, path} = props;
   const b1 = getCol(data, 0);
   const b2 = getCol(data, 1);
   const b3 = getCol(data, 2);
@@ -15,6 +15,9 @@ export const Home = (props) => {
   return (
     <Grid fluid={true}>
       <PanelGroup>
+        <Panel collapsible={false} header="原文件路径" eventKey={0} defaultExpanded={true} >
+          <div>{path}</div>
+        </Panel>
         <BallData b={b1} header="1号球" eventKey={1} bsStyle="success" />
         <BallData b={b2} header="2号球" eventKey={2} bsStyle="success" />
         <BallData b={b3} header="3号球" eventKey={3} bsStyle="success" />
