@@ -57,7 +57,7 @@ const component = (props) => {
             <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} tip="数字用逗号分割" />
             <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} />  
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据" eventKey={0} bsStyle="success"/>
+              <BallData b={binaryData} header="二进制数据（大于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
             <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} tip="数字用逗号分割"/>      
             <FormGroup>

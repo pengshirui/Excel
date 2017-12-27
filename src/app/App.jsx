@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Col, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { Tab as FuncTab } from '../share/Tab.jsx';
 import { Home as HomeTab } from '../home/Home.jsx';
+import { OddEven as OddEvenTab } from '../oddeven/OddEven.jsx';
 import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
 
@@ -23,7 +24,7 @@ export const App = () => {
               <NavItem eventKey={0} >文件</NavItem>
               <NavItem eventKey={1} >大小</NavItem>
               <NavItem eventKey={2} >质和</NavItem>
-              <NavItem eventKey={3} >3</NavItem>
+              <NavItem eventKey={3} >奇偶</NavItem>
               <NavItem eventKey={4} >4</NavItem>
               <NavItem eventKey={5} >5</NavItem>
               <NavItem eventKey={6} >6</NavItem>
@@ -42,7 +43,7 @@ export const App = () => {
                 <PrimeTab />
               </Tab.Pane>
               <Tab.Pane eventKey={3}>
-                <FuncTab />
+                <OddEvenTab />
               </Tab.Pane>
               <Tab.Pane eventKey={4}>
                 <FuncTab />

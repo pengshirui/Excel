@@ -4,7 +4,7 @@ import { checkPattern, convertStrToArr, getRawDataWithPattern} from '../util/Pat
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
-import { convertToPrimeComposite } from '../prime/Convert';
+import { convertToOddEven } from '../oddeven/Convert';
 
 const enhance = compose(
   withState("data", "setData", ""),
@@ -23,7 +23,7 @@ const enhance = compose(
     submit: ({data, args, setBinaryData, setResultRawData, setResult}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToPrimeComposite(dataArr);
+      const bData = convertToOddEven(dataArr);
       setBinaryData(bData);
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
@@ -53,7 +53,7 @@ const component = (props) => {
           <form>
             <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} tip="数字用逗号分割" />  
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据 （质数为0，合数为1）" eventKey={0} bsStyle="success"/>
+              <BallData b={binaryData} header="二进制数据 （偶数为0，奇数为1）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
             <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} tip="数字用逗号分割"/>      
             <FormGroup>
@@ -72,4 +72,4 @@ const component = (props) => {
   );
 }
 
-export const Prime = enhance(component);
+export const OddEven = enhance(component);
