@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Glyphicon, Nav, NavItem, Row, Tab } from 'react-bootstrap';
+import { Col, Glyphicon, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { compose, withHandlers, withState } from 'recompose';
 import { ColdWarmHot as ColdWarmHotTab } from '../coldWarmHot/ColdWarmHot.jsx';
 import { FirstRoute as FirstRouteTab } from '../firstRoute/FirstRoute.jsx';
@@ -12,7 +12,7 @@ import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
 import { readCsvAs2DArr } from '../util/File.js';
 
-const sideBar = {
+const left = {
   backgroundColor: '#337ab7',
   position: 'fixed',
   top: '0px',
@@ -25,12 +25,11 @@ const inputFile = {
   display: 'none'
 }
 
-const content = {
+const right = {
   position: 'absolute',
   left: '50px',
   right: '0',
   overflowX: 'hidden',
-
 }
 
 const margin = {
@@ -58,14 +57,14 @@ const enhance = compose(
 const component = (props) => {
   const { csv, filePath, onChange, onClick } = props;
   return (
-    <div>
-      <div style={sideBar}>
+    <Grid>
+      <div style={left}>
         <label className="btn btn-lg btn-primary btn-block">
           <Glyphicon glyph="file" />
           <input type="file" style={inputFile} accept='.csv' onChange={onChange} onClick={onClick} />
         </label>      
       </div>
-      <div style={content}>
+      <div style={right}>
         <Tab.Container id="tabs-with-dropdown" defaultActiveKey={0}>
           <Row className="clearfix">
             <Col sm={12}>
@@ -113,7 +112,7 @@ const component = (props) => {
           </Row>
         </Tab.Container>
       </div>
-    </div>
+    </Grid>
   );
 }
 
