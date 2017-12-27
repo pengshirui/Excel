@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
+import { Button, Checkbox, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
@@ -25,24 +25,21 @@ const enhance = compose(
   withState("result", "setResult", ""),
   withState("resultRawData", "setResultRawData", ""),
   withHandlers({
-    updateData: ({setData}) => (selected) => {
+    updateData: ({ setData }) => (selected) => {
       if (selected && selected[0] && selected[0].id) {
         setData(selected[0].id);
       }
     },
-    updateDataByText: ({setData}) => (text) => {
-      // filter out labels
-      if (!text.includes("号球")) {
-        setData(text);
-      }
+    updateDataByText: ({ setData }) => (event) => {
+      setData(event.target.value);
     },
-    updateArgs: ({setArgs}) => (event) => {
+    updateArgs: ({ setArgs }) => (event) => {
       setArgs(event.target.value);
     },
-    updatePivot: ({setPivot}) => (event) => {
+    updatePivot: ({ setPivot }) => (event) => {
       setPivot(event.target.value);
     },
-    submit: ({data, args, setResult, setBinaryData, setResultRawData, pivot}) => () => {
+    submit: ({ data, args, setResult, setBinaryData, setResultRawData, pivot }) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
       const bData = convertToBigSmall(dataArr, parseInt(pivot));
@@ -56,26 +53,26 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const {result, resultRawData, args, data, pivot, csv, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit} = props;
+  const { result, resultRawData, args, data, pivot, csv, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
   const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error';
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={6}>
           <form>
-            <Typeahead 
-              csv={csv} 
-              label="数据" 
-              onChange={updateData}
+            <Typeahead
+              csv={csv}
+              label="数据"
+              onSelectChange={updateData}
               onInputChange={updateDataByText}
-              validationState={getValidationState(data)} 
+              validationState={getValidationState(data)}
               placeholder="预选或者数字用逗号分割"
             />
-            <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字"/>  
+            <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字" />
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据（大于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success"/>
+              <BallData b={binaryData} header="二进制数据（大于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success" />
             </PanelGroup>
-            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
+            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割" />
             <FormGroup>
               <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
             </FormGroup>
@@ -83,8 +80,8 @@ const component = (props) => {
         </Col>
         <Col xs={6}>
           <PanelGroup>
-            <BallData b={result} header="结果" eventKey={0} bsStyle="success"/>
-            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="success"/>
+            <BallData b={result} header="结果" eventKey={0} bsStyle="success" />
+            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="success" />
           </PanelGroup>
         </Col>
       </Row>
