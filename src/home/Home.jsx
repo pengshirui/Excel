@@ -4,14 +4,14 @@ import { BallData } from '../share/BallData.jsx';
 import { getCol } from '../util/Array.js';
 
 export const Home = (props) => {
-  const { data, path} = props;
-  const b1 = getCol(data, 0);
-  const b2 = getCol(data, 1);
-  const b3 = getCol(data, 2);
-  const b4 = getCol(data, 3);
-  const b5 = getCol(data, 4);
-  const b6 = getCol(data, 5);
-  const b7 = getCol(data, 6);
+  const { csv, path } = props;
+  const b1 = getCol(csv, 0);
+  const b2 = getCol(csv, 1);
+  const b3 = getCol(csv, 2);
+  const b4 = getCol(csv, 3);
+  const b5 = getCol(csv, 4);
+  const b6 = getCol(csv, 5);
+  const b7 = getCol(csv, 6);
   return (
     <Grid fluid={true}>
       <PanelGroup>

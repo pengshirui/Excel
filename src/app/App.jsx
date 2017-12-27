@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, Glyphicon, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
+import { Col, Glyphicon, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { compose, withHandlers, withState } from 'recompose';
 import { ColdWarmHot as ColdWarmHotTab } from '../coldWarmHot/ColdWarmHot.jsx';
 import { FirstRoute as FirstRouteTab } from '../firstRoute/FirstRoute.jsx';
@@ -58,7 +58,7 @@ const enhance = compose(
 const component = (props) => {
   const { csv, filePath, onChange, onClick } = props;
   return (
-    <Grid fluid={true}>
+    <div>
       <div style={sideBar}>
         <label className="btn btn-lg btn-primary btn-block">
           <Glyphicon glyph="file" />
@@ -113,7 +113,7 @@ const component = (props) => {
           </Row>
         </Tab.Container>
       </div>
-    </Grid>
+    </div>
   );
 }
 
