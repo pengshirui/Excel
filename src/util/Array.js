@@ -3,7 +3,9 @@ export const getCol = (twoDArr, colNum) => {
   for(let i = 0; twoDArr && i < twoDArr.length; i++) {
     if (colNum < twoDArr[i].length) {
       if (twoDArr[i][colNum] && !isNaN(twoDArr[i][colNum])) {
-        res.push(twoDArr[i][colNum]);
+        // TODO last key may cause issue
+        const k = twoDArr[i][colNum].replace(/(\r\n|\n|\r)/gm,"");
+        res.push(k);
       }
     }
   }
