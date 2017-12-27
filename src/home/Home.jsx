@@ -1,55 +1,19 @@
 import * as React from 'react';
-import { ControlLabel, FormGroup, Grid, PanelGroup } from 'react-bootstrap';
-import { compose, withHandlers, withState } from 'recompose';
-import { getCol, readCsvAs2DArr } from '../util/File.js';
+import { Grid, PanelGroup } from 'react-bootstrap';
 import { BallData } from '../share/BallData.jsx';
+import { getCol } from '../util/File.js';
 
-const enhance = compose(
-  withState('b1', 'setB1', []),
-  withState('b2', 'setB2', []),
-  withState('b3', 'setB3', []),
-  withState('b4', 'setB4', []),
-  withState('b5', 'setB5', []),
-  withState('b6', 'setB6', []),
-  withState('b7', 'setB7', []),
-  withState('filePath', 'setFilePath', ''),
-  withHandlers({
-    onChange: props => event => {
-      if (event.target.files[0]) {
-        props.setFilePath(event.target.files[0].path);
-        const twoDArr = readCsvAs2DArr(event.target.files[0].path);
-        const col0 = getCol(twoDArr, 0);
-        const col1 = getCol(twoDArr, 1);
-        const col2 = getCol(twoDArr, 2);
-        const col3 = getCol(twoDArr, 3);
-        const col4 = getCol(twoDArr, 4);
-        const col5 = getCol(twoDArr, 5);
-        const col6 = getCol(twoDArr, 6);
-        props.setB1(col0);
-        props.setB2(col1);
-        props.setB3(col2);
-        props.setB4(col3);
-        props.setB5(col4);
-        props.setB6(col5);
-        props.setB7(col6);
-      }
-    },
-    onClick: () => event => {
-      event.target.value = null;
-    }
-  })
-)
-
-const Component = (props) => {
-  const { b1, b2, b3, b4, b5, b6, b7, onChange, onClick } = props;
+export const Home = (props) => {
+  const { data } = props;
+  const b1 = getCol(data, 0);
+  const b2 = getCol(data, 1);
+  const b3 = getCol(data, 2);
+  const b4 = getCol(data, 3);
+  const b5 = getCol(data, 4);
+  const b6 = getCol(data, 5);
+  const b7 = getCol(data, 6);
   return (
     <Grid fluid={true}>
-      <form>
-        <FormGroup>
-          <ControlLabel>选择文件</ControlLabel>
-          <input className="form-control" type="file" id="input" accept='.csv' onChange={onChange} onClick={onClick} />
-        </FormGroup>
-      </form>
       <PanelGroup>
         <BallData b={b1} header="1号球" eventKey={1} bsStyle="success" />
         <BallData b={b2} header="2号球" eventKey={2} bsStyle="success" />
@@ -62,5 +26,3 @@ const Component = (props) => {
     </Grid>
   )
 };
-
-export const Home = enhance(Component);
