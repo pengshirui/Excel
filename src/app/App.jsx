@@ -19,6 +19,7 @@ const left = {
   bottom: '0px',
   left: '0px',
   width: '50px',
+  zIndex: '1000'
 };
 
 const inputFile = {
