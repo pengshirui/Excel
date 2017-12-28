@@ -53,7 +53,7 @@ const enhance = compose(
 
 const component = (props) => {
   const { result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
-  const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error';
+  const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error' || getValidationState(pivot) === 'error';
   return (
     <Grid fluid={true}>
       <Row>
