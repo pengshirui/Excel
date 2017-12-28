@@ -52,7 +52,7 @@ const component = (props) => {
       <Row>
         <Col xs={6}>
           <form>
-            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" />  
+            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data} />  
             <BallButtons csv={csv} setData={setData}/>
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据 （偶数为0，奇数为1）" eventKey={0} bsStyle="success"/>

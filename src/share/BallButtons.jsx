@@ -19,7 +19,7 @@ const component = (props) => {
   return (
     <FormGroup>
       <ButtonToolbar block="true">
-        <ToggleButtonGroup type="radio" name="options" defaultValue={0} justified={true}>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={7} justified={true}>
           <ToggleButton value={7} onChange={updateDataByBtn}>手动输入</ToggleButton>
           <ToggleButton value={0} onChange={updateDataByBtn}>1号球</ToggleButton>
           <ToggleButton value={1} onChange={updateDataByBtn}>2号球</ToggleButton>
