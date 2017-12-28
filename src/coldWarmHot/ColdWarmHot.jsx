@@ -1,22 +1,24 @@
 import * as React from 'react';
-import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
+import { Button, ButtonToolbar, Col, FormGroup, Grid, PanelGroup, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
+import { convertStrToArr, getColAsStr } from '../util/Array';
 import { BallData } from '../share/BallData.jsx';
-import { convertStrToArr } from '../util/Array';
 import { convertToColdWarmHot } from '../coldWarmHot/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 
 const enhance = compose(
   withState("data", "setData", ""),
+  withState("ballNumber", "setBallNumber", 0),
   withState("binaryData", "setBinaryData", ""),
   withState("args", "setArgs", ""),
   withState("result", "setResult", ""),
   withState("resultRawData", "setResultRawData", ""),
   withHandlers({
-    updateData: (props) => (event) => {
-      const {setData} = props;
-      setData(event.target.value);
+    updateData: ({ setData, setBallNumber, csv }) => (event) => {
+      const bData = getColAsStr(csv, event.target.value);
+      setData(bData);
+      setBallNumber(event.target.value);
     },
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
@@ -46,13 +48,26 @@ const getValidationState = (args) => {
 const component = (props) => {
   const {result, resultRawData, args, data, binaryData, updateArgs, updateData, submit} = props;
   const regex = /^\d+(,\d+)*$/;
-  const disabled = !regex.test(args) || !regex.test(data);
+  const disabled = !regex.test(args);
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={6}>
           <form>
-            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" />  
+            <FieldGroup label="数据" disabled={true} value={data}/>
+            <FormGroup>
+              <ButtonToolbar block="true">
+                <ToggleButtonGroup type="radio" name="options" defaultValue={0} justified={true}>
+                  <ToggleButton value={0} onChange={updateData}>1号球</ToggleButton>
+                  <ToggleButton value={1} onChange={updateData}>2号球</ToggleButton>
+                  <ToggleButton value={2} onChange={updateData}>3号球</ToggleButton>
+                  <ToggleButton value={3} onChange={updateData}>4号球</ToggleButton>
+                  <ToggleButton value={4} onChange={updateData}>5号球</ToggleButton>
+                  <ToggleButton value={5} onChange={updateData}>6号球</ToggleButton>
+                  <ToggleButton value={6} onChange={updateData}>7号球</ToggleButton>
+                </ToggleButtonGroup>
+              </ButtonToolbar>
+            </FormGroup>
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据 (冷为0，温为1，热为2）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
