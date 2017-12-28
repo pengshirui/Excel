@@ -54,7 +54,7 @@ const component = (props) => {
         <Col xs={6}>
           <form>
             <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data}/>
-            <BallButtons setData={setData} csv={csv}/>
+            <BallButtons setData={setData} csv={csv} />
             <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字" />
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据（大于等于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success" />
