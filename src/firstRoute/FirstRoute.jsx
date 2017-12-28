@@ -62,8 +62,8 @@ const component = (props) => {
         </Col>
         <Col xs={6}>
           <PanelGroup>
-            <BallData b={result} header="结果" eventKey={0} bsStyle="success"/>
-            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="success"/>
+            <BallData b={result} header="结果" eventKey={0} bsStyle="primary"/>
+            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="primary"/>
           </PanelGroup>
         </Col>
       </Row>

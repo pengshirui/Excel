@@ -53,7 +53,7 @@ const component = (props) => {
         </Col>
         <Col xs={6}>
           <PanelGroup>
-            <BallData b={result} header="结果" eventKey={0} bsStyle="success"/>
+            <BallData b={result} header="结果" eventKey={0} bsStyle="primary"/>
           </PanelGroup>
         </Col>
       </Row>
