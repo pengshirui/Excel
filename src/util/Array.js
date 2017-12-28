@@ -12,7 +12,7 @@ export const getCol = (twoDArr, colNum) => {
   return res;
 }
   
-const getColAsStr = (twoDArr, colNum) => {
+export const getColAsStr = (twoDArr, colNum) => {
   const res = getCol(twoDArr, colNum);
   return res ? res.join() : '';
 }

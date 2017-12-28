@@ -3,9 +3,9 @@ import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
-import { FieldGroup } from '../share/FieldGroup.jsx';
-import { convertStrToArr } from '../util/Array.js';
+import { convertStrToArr } from '../util/Array';
 import { convertToFirstRoute } from '../firstRoute/Convert.js';
+import { FieldGroup } from '../share/FieldGroup.jsx';
 
 
 const enhance = compose(

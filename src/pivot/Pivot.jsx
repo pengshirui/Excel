@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { Button, Checkbox, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
+import { Button, ButtonToolbar, Col, FormGroup, Grid, PanelGroup, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
+import { convertStrToArr, getColAsStr } from '../util/Array.js';
 import { BallData } from '../share/BallData.jsx';
-import { FieldGroup } from '../share/FieldGroup.jsx';
-import { Typeahead } from '../share/Typeahdead.jsx';
-import { convertStrToArr } from '../util/Array.js';
 import { convertToBigSmall } from '../pivot/Convert.js';
-import { convertTwoDArrToOptions } from '../util/Array.js';
+import { FieldGroup } from '../share/FieldGroup.jsx';
 
 const getValidationState = (args) => {
   const regex = /^\d+(,\d+)*$/;
@@ -26,9 +24,12 @@ const enhance = compose(
   withState("result", "setResult", ""),
   withState("resultRawData", "setResultRawData", ""),
   withHandlers({
-    updateData: ({ setData }) => (selected) => {
-      if (selected && selected[0] && selected[0].id) {
-        setData(selected[0].id);
+    updateData: ({ setData, csv }) => (event) => {
+      if (event.target.value > 6) {
+        setData("")
+      } else {
+        const bData = getColAsStr(csv, event.target.value);
+        setData(bData);
       }
     },
     updateDataByText: ({ setData }) => (event) => {
@@ -54,23 +55,28 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const { result, resultRawData, args, data, pivot, csv, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
+  const { result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
   const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error';
-  const options = convertTwoDArrToOptions(csv);
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={6}>
           <form>
-            <Typeahead
-              options={options}
-              label="数据"
-              placeholder="预选或者数字用逗号分割"
-              onSelectChange={updateData}
-              onInputChange={updateDataByText}
-              validationState={getValidationState(data)}
-              data={data}
-            />
+            <FieldGroup label="数据" onChange={updateDataByText} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data}/>
+            <FormGroup>
+              <ButtonToolbar block="true">
+                <ToggleButtonGroup type="radio" name="options" defaultValue={7}>
+                  <ToggleButton value={7} onChange={updateData}>手动输入数据</ToggleButton>
+                  <ToggleButton value={0} onChange={updateData}>1号球</ToggleButton>
+                  <ToggleButton value={1} onChange={updateData}>2号球</ToggleButton>
+                  <ToggleButton value={2} onChange={updateData}>3号球</ToggleButton>
+                  <ToggleButton value={3} onChange={updateData}>4号球</ToggleButton>
+                  <ToggleButton value={4} onChange={updateData}>5号球</ToggleButton>
+                  <ToggleButton value={5} onChange={updateData}>6号球</ToggleButton>
+                  <ToggleButton value={6} onChange={updateData}>7号球</ToggleButton>
+                </ToggleButtonGroup>
+              </ButtonToolbar>
+            </FormGroup>
             <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字" />
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据（大于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success" />
