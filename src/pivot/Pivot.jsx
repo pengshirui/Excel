@@ -22,16 +22,16 @@ const enhance = compose(
   withBaseData,
   withState("pivot", "setPivot", ""),
   withHandlers({
-    updateData: ({ setData, csv }) => (event) => {
+    updateData: ({setData}) => (event) => {
+      setData(event.target.value);
+    },
+    updateDataByBtn: ({ setData, csv }) => (event) => {
       if (event.target.value > 6) {
         setData("")
       } else {
         const bData = getColAsStr(csv, event.target.value);
         setData(bData);
       }
-    },
-    updateDataByText: ({ setData }) => (event) => {
-      setData(event.target.value);
     },
     updateArgs: ({ setArgs }) => (event) => {
       setArgs(event.target.value);
@@ -53,25 +53,25 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const { result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, updateDataByText, submit } = props;
+  const { result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, updateDataByBtn, submit } = props;
   const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error' || getValidationState(pivot) === 'error';
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={6}>
           <form>
-            <FieldGroup label="数据" onChange={updateDataByText} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data}/>
+            <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data}/>
             <FormGroup>
               <ButtonToolbar block="true">
                 <ToggleButtonGroup type="radio" name="options" defaultValue={7} justified={true}>
-                  <ToggleButton value={7} onChange={updateData}>手动输入</ToggleButton>
-                  <ToggleButton value={0} onChange={updateData}>1号球</ToggleButton>
-                  <ToggleButton value={1} onChange={updateData}>2号球</ToggleButton>
-                  <ToggleButton value={2} onChange={updateData}>3号球</ToggleButton>
-                  <ToggleButton value={3} onChange={updateData}>4号球</ToggleButton>
-                  <ToggleButton value={4} onChange={updateData}>5号球</ToggleButton>
-                  <ToggleButton value={5} onChange={updateData}>6号球</ToggleButton>
-                  <ToggleButton value={6} onChange={updateData}>7号球</ToggleButton>
+                  <ToggleButton value={7} onChange={updateDataByBtn}>手动输入</ToggleButton>
+                  <ToggleButton value={0} onChange={updateDataByBtn}>1号球</ToggleButton>
+                  <ToggleButton value={1} onChange={updateDataByBtn}>2号球</ToggleButton>
+                  <ToggleButton value={2} onChange={updateDataByBtn}>3号球</ToggleButton>
+                  <ToggleButton value={3} onChange={updateDataByBtn}>4号球</ToggleButton>
+                  <ToggleButton value={4} onChange={updateDataByBtn}>5号球</ToggleButton>
+                  <ToggleButton value={5} onChange={updateDataByBtn}>6号球</ToggleButton>
+                  <ToggleButton value={6} onChange={updateDataByBtn}>7号球</ToggleButton>
                 </ToggleButtonGroup>
               </ButtonToolbar>
             </FormGroup>
