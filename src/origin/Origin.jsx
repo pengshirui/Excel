@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, convertStrToArr} from '../util/Pattern.js';
+import { Col, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
+import { CalculateButton } from '../share/CalculateButton.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 
 const enhance = compose(
@@ -46,9 +47,7 @@ const component = (props) => {
           <form>
             <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" />  
             <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
-            <FormGroup>
-              <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
-            </FormGroup>
+            <CalculateButton onClick={submit} disabled={disabled} />
           </form>
         </Col>
         <Col xs={6}>

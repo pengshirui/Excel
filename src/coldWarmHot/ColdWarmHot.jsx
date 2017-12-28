@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Button, ButtonToolbar, Col, FormGroup, Grid, PanelGroup, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { ButtonToolbar, Col, FormGroup, Grid, PanelGroup, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { convertStrToArr, getColAsStr } from '../util/Array';
 import { BallData } from '../share/BallData.jsx';
+import { CalculateButton } from '../share/CalculateButton.jsx';
 import { convertToColdWarmHot } from '../coldWarmHot/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { withBaseData } from '../share/withData';
@@ -69,9 +70,7 @@ const component = (props) => {
               <BallData b={binaryData} header="二进制数据 (冷为0，温为1，热为2）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
             <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
-            <FormGroup>
-              <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
-            </FormGroup>
+            <CalculateButton onClick={submit} disabled={disabled} />
           </form>
         </Col>
         <Col xs={6}>

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
+import { Col, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { compose, withHandlers } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
+import { CalculateButton } from '../share/CalculateButton.jsx';
 import { convertStrToArr } from '../util/Array';
 import { convertToSecondRoute } from '../secondRoute/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
@@ -54,9 +55,7 @@ const component = (props) => {
               <BallData b={binaryData} header="二进制数据 （二路为1，其他为0）" eventKey={0} bsStyle="success"/>
             </PanelGroup>
             <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
-            <FormGroup>
-              <Button onClick={submit} block={true} bsStyle="primary" disabled={disabled}>计算</Button>
-            </FormGroup>
+            <CalculateButton onClick={submit} disabled={disabled} />
           </form>
         </Col>
         <Col xs={6}>
