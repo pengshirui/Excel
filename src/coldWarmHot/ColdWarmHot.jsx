@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ButtonToolbar, Col, FormGroup, Grid, PanelGroup, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
+import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { convertStrToArr, getColAsStr } from '../util/Array';
 import { BallData } from '../share/BallData.jsx';
@@ -18,13 +18,13 @@ const enhance = compose(
       setData(bData);
       setBallNumber(event.target.value);
     },
-    updateArgs: ({setArgs}) => (event) => {
+    updateArgs: ({ setArgs }) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({ballNumber, csv, data, args, setBinaryData, setResultRawData, setResult}) => () => {
+    submit: ({ ballNumber, csv, data, args, setBinaryData, setResultRawData, setResult }) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToColdWarmHot(ballNumber, csv);    
+      const bData = convertToColdWarmHot(ballNumber, csv);
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
       setBinaryData(bData);
@@ -44,7 +44,7 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {result, resultRawData, args, data, binaryData, updateArgs, updateDataByBtn, submit} = props;
+  const { result, resultRawData, args, data, binaryData, updateArgs, updateDataByBtn, submit } = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(args);
   return (
@@ -52,7 +52,7 @@ const component = (props) => {
       <Row>
         <Col xs={6}>
           <form>
-            <FieldGroup label="数据" disabled={true} value={data}/>
+            <FieldGroup label="数据" disabled={true} value={data} />
             <FormGroup>
               <ButtonToolbar block="true">
                 <ToggleButtonGroup type="radio" name="options" defaultValue={0} justified={true}>
@@ -67,16 +67,16 @@ const component = (props) => {
               </ButtonToolbar>
             </FormGroup>
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据 (冷为0，温为1，热为2）" eventKey={0} bsStyle="success"/>
+              <BallData b={binaryData} header="二进制数据 (冷为0，温为1，热为2）" eventKey={0} bsStyle="success" />
             </PanelGroup>
-            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割"/>      
+            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割" />
             <CalculateButton onClick={submit} disabled={disabled} />
           </form>
         </Col>
         <Col xs={6}>
           <PanelGroup>
-            <BallData b={result} header="结果" eventKey={0} bsStyle="primary"/>
-            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="primary"/>
+            <BallData b={result} header="结果" eventKey={0} bsStyle="primary" />
+            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="primary" />
           </PanelGroup>
         </Col>
       </Row>
