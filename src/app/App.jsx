@@ -8,9 +8,9 @@ import { OddEven as OddEvenTab } from '../oddeven/OddEven.jsx';
 import { Origin as OriginTab } from '../origin/Origin.jsx';
 import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
+import { readCsvAs2DArr } from '../util/File.js';
 import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
-import { readCsvAs2DArr } from '../util/File.js';
 
 const left = {
   backgroundColor: '#337ab7',
