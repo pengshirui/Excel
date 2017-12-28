@@ -20,13 +20,13 @@ const enhance = compose(
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({csv, data, args, setBinaryData, setResultRawData, setResult}) => () => {
+    submit: ({ballNumber, csv, data, args, setBinaryData, setResultRawData, setResult}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToColdWarmHot(dataArr, csv);
-      setBinaryData(bData);
+      const bData = convertToColdWarmHot(ballNumber, csv);    
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
+      setBinaryData(bData);
       setResultRawData(bRawData);
       setResult(result);
     }
