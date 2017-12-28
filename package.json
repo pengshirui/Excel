@@ -1,13 +1,13 @@
 {
     "name": "lottery",
-    "version": "1.17.12.27",
+    "version": "1.17.12.28",
     "private": true,
     "main": "main.js",
     "scripts": {
         "validate": "eslint -c .eslintrc.json . --fix",
         "compile": "webpack --progress --display-error-details",
         "build": "cp src/root/index.html dist/index.html && cp src/main.js dist/main.js",
-        "package": "yarn && yarn compile && yarn build && cp package.json dist/package.json && electron-packager ./dist lottery --arch=x64 --out=build/1.17.12.27 --platform=win32 --overwrite",
+        "package": "yarn && yarn compile && yarn build && cp package.json dist/package.json && electron-packager ./dist lottery --arch=x64 --out=build/1.17.12.28 --platform=win32 --overwrite",
         "start": "yarn && yarn compile && yarn build && electron dist/main.js"
     },
     "dependencies": {
