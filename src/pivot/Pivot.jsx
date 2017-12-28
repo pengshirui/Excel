@@ -65,8 +65,8 @@ const component = (props) => {
             <FieldGroup label="数据" onChange={updateDataByText} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data}/>
             <FormGroup>
               <ButtonToolbar block="true">
-                <ToggleButtonGroup type="radio" name="options" defaultValue={7}>
-                  <ToggleButton value={7} onChange={updateData}>手动输入数据</ToggleButton>
+                <ToggleButtonGroup type="radio" name="options" defaultValue={7} justified={true}>
+                  <ToggleButton value={7} onChange={updateData}>手动输入</ToggleButton>
                   <ToggleButton value={0} onChange={updateData}>1号球</ToggleButton>
                   <ToggleButton value={1} onChange={updateData}>2号球</ToggleButton>
                   <ToggleButton value={2} onChange={updateData}>3号球</ToggleButton>
