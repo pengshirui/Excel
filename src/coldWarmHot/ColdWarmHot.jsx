@@ -6,14 +6,11 @@ import { convertStrToArr, getColAsStr } from '../util/Array';
 import { BallData } from '../share/BallData.jsx';
 import { convertToColdWarmHot } from '../coldWarmHot/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { withBaseData } from '../share/withData';
 
 const enhance = compose(
-  withState("data", "setData", ""),
+  withBaseData,
   withState("ballNumber", "setBallNumber", 0),
-  withState("binaryData", "setBinaryData", ""),
-  withState("args", "setArgs", ""),
-  withState("result", "setResult", ""),
-  withState("resultRawData", "setResultRawData", ""),
   withHandlers({
     updateData: ({ setData, setBallNumber, csv }) => (event) => {
       const bData = getColAsStr(csv, event.target.value);

@@ -1,19 +1,16 @@
 import * as React from 'react';
 import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
-import { compose, withHandlers, withState } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { convertStrToArr } from '../util/Array';
 import { convertToFirstRoute } from '../firstRoute/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { withBaseData } from '../share/withData';
 
 
 const enhance = compose(
-  withState("data", "setData", ""),
-  withState("binaryData", "setBinaryData", ""),
-  withState("args", "setArgs", ""),
-  withState("result", "setResult", ""),
-  withState("resultRawData", "setResultRawData", ""),
+  withBaseData,
   withHandlers({
     updateData: (props) => (event) => {
       const {setData} = props;

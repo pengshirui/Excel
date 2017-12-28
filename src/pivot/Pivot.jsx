@@ -6,6 +6,7 @@ import { convertStrToArr, getColAsStr } from '../util/Array.js';
 import { BallData } from '../share/BallData.jsx';
 import { convertToBigSmall } from '../pivot/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { withBaseData } from '../share/withData';
 
 const getValidationState = (args) => {
   const regex = /^\d+(,\d+)*$/;
@@ -17,12 +18,8 @@ const getValidationState = (args) => {
 }
 
 const enhance = compose(
-  withState("data", "setData", ""),
-  withState("binaryData", "setBinaryData", ""),
-  withState("args", "setArgs", ""),
+  withBaseData,
   withState("pivot", "setPivot", ""),
-  withState("result", "setResult", ""),
-  withState("resultRawData", "setResultRawData", ""),
   withHandlers({
     updateData: ({ setData, csv }) => (event) => {
       if (event.target.value > 6) {
