@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Button, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
-import { checkPattern, convertStrToArr, getRawDataWithPattern} from '../util/Pattern.js';
+import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { convertStrToArr } from '../util/Array.js';
 import { convertToColdWarmHot } from '../coldWarmHot/Convert.js';
 
 const enhance = compose(
@@ -20,10 +21,10 @@ const enhance = compose(
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({data, args, setBinaryData, setResultRawData, setResult}) => () => {
+    submit: ({csv, data, args, setBinaryData, setResultRawData, setResult}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToColdWarmHot(dataArr);
+      const bData = convertToColdWarmHot(dataArr, csv);
       setBinaryData(bData);
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);

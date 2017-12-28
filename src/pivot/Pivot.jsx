@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Button, Checkbox, Col, FormGroup, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers, withState } from 'recompose';
-import { convertStrToArr, convertTwoDArrToOptions } from '../util/Array.js';
 import { BallData } from '../share/BallData.jsx';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { Typeahead } from '../share/Typeahdead.jsx';
+import { convertStrToArr } from '../util/Array.js';
 import { convertToBigSmall } from '../pivot/Convert.js';
+import { convertTwoDArrToOptions } from '../util/Array.js';
 
 const getValidationState = (args) => {
   const regex = /^\d+(,\d+)*$/;
