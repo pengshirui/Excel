@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { checkPattern, convertStrToArr, getRawDataWithPattern } from '../util/Pattern.js';
+import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { Col, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { compose, withHandlers } from 'recompose';
 import { BallButtons } from '../share/BallButtons.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
+import { convertStrToArr } from '../util/Array';
 import { convertToZeroRoute } from '../zeroRoute/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { withBaseData } from '../share/withData';
