@@ -10,6 +10,7 @@ import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
 import { readCsvAs2DArr } from '../util/File.js';
 import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
+import { ThreeRoute as ThreeRouteTab } from '../threeRoute/ThreeRoute.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
 
 const left = {
@@ -75,10 +76,11 @@ const component = (props) => {
                 <NavItem eventKey={2} >质和</NavItem>
                 <NavItem eventKey={3} >奇偶</NavItem>
                 <NavItem eventKey={4} >原始</NavItem>
-                <NavItem eventKey={5} >零路</NavItem>
-                <NavItem eventKey={6} >一路</NavItem>
-                <NavItem eventKey={7} >二路</NavItem>
-                <NavItem eventKey={8} >冷温热</NavItem>
+                <NavItem eventKey={5} >零一二路</NavItem>
+                <NavItem eventKey={6} >零路</NavItem>
+                <NavItem eventKey={7} >一路</NavItem>
+                <NavItem eventKey={8} >二路</NavItem>
+                <NavItem eventKey={9} >冷温热</NavItem>
               </Nav>
               <Tab.Content animation style={margin}>
                 <Tab.Pane eventKey={0}>
@@ -97,15 +99,18 @@ const component = (props) => {
                   <OriginTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={5}>
-                  <ZeroRouteTab csv={csv} />
+                  <ThreeRouteTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={6}>
-                  <FirstRouteTab csv={csv} />
+                  <ZeroRouteTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={7}>
-                  <SecondRouteTab csv={csv} />
+                  <FirstRouteTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={8}>
+                  <SecondRouteTab csv={csv} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={9}>
                   <ColdWarmHotTab csv={csv} />
                 </Tab.Pane>
               </Tab.Content>
