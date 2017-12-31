@@ -9,6 +9,7 @@ import { Origin as OriginTab } from '../origin/Origin.jsx';
 import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
 import { readCsvAs2DArr } from '../util/File.js';
+import { Repeat as RepeatTab } from '../repeat/Repeat.jsx';
 import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
 import { ThreeRoute as ThreeRouteTab } from '../threeRoute/ThreeRoute.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
@@ -81,6 +82,7 @@ const component = (props) => {
                 <NavItem eventKey={7} >一路</NavItem>
                 <NavItem eventKey={8} >二路</NavItem>
                 <NavItem eventKey={9} >冷温热</NavItem>
+                <NavItem eventKey={10} >复隔中</NavItem>
               </Nav>
               <Tab.Content animation style={margin}>
                 <Tab.Pane eventKey={0}>
@@ -112,6 +114,9 @@ const component = (props) => {
                 </Tab.Pane>
                 <Tab.Pane eventKey={9}>
                   <ColdWarmHotTab csv={csv} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={10}>
+                  <RepeatTab csv={csv} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
