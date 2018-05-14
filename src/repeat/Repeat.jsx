@@ -7,6 +7,8 @@ import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
 import { convertToRepeat } from '../repeat/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { generateResults} from '../share/Calculate.jsx';
+import { ResultData } from '../share/ResultData.jsx';
 import { withBaseData } from '../share/withData';
 
 const enhance = compose(
@@ -21,15 +23,28 @@ const enhance = compose(
     updateArgs: ({ setArgs }) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({ ballNumber, csv, data, args, setBinaryData, setResultRawData, setResult }) => () => {
+    submit: ({ballNumber, csv, data, setBinaryData, patterns, results, resultsRawData }) => () => {  
+      // get the binary data
+      const dataArr = convertStrToArr(data);
+      const bData = convertToRepeat(ballNumber, csv);
+      setBinaryData(bData);
+      generateResults(bData, dataArr, patterns, results, resultsRawData); 
+    },
+    submitUseManullayInputPattern: ({ballNumber, csv, data, setBinaryData, args, patterns, resultsRawData, results}) => () => {
+      // clear all arrays
+      results.length = 0;
+      resultsRawData.length = 0;
+      patterns.length = 0;
+      
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
       const bData = convertToRepeat(ballNumber, csv);
+      setBinaryData(bData);
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
-      setBinaryData(bData);
-      setResultRawData(bRawData);
-      setResult(result);
+      patterns.push(patternArr);
+      resultsRawData.push(bRawData);
+      results.push(result);   
     }
   })
 );
@@ -44,9 +59,10 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const { result, resultRawData, args, data, binaryData, updateArgs, updateDataByBtn, submit } = props;
+  const {args, data, binaryData, updateArgs, updateDataByBtn, submit, submitUseManullayInputPattern,  patterns, results, resultsRawData } = props;
   const regex = /^\d+(,\d+)*$/;
-  const disabled = !regex.test(args);
+  const disabled = !regex.test(data);
+  const disabledForManualInput = !regex.test(args) || !regex.test(data);
   return (
     <Grid fluid={true}>
       <Row>
@@ -62,21 +78,24 @@ const component = (props) => {
                   <ToggleButton value={3} onChange={updateDataByBtn}>4号球</ToggleButton>
                   <ToggleButton value={4} onChange={updateDataByBtn}>5号球</ToggleButton>
                   <ToggleButton value={5} onChange={updateDataByBtn}>6号球</ToggleButton>
-                  <ToggleButton value={6} onChange={updateDataByBtn}>7号球</ToggleButton>
+                  {/* <ToggleButton value={6} onChange={updateDataByBtn}>7号球</ToggleButton> */}
                 </ToggleButtonGroup>
               </ButtonToolbar>
             </FormGroup>
             <PanelGroup>
               <BallData b={binaryData} header="二进制数据 (中为0，隔为1，复为2）" eventKey={0} bsStyle="success" />
             </PanelGroup>
-            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割" />
             <CalculateButton onClick={submit} disabled={disabled} />
+            <br></br>
+            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割" />
+            <CalculateButton onClick={submitUseManullayInputPattern} disabled={disabledForManualInput} />
           </form>
         </Col>
         <Col xs={6}>
           <PanelGroup>
-            <BallData b={result} header="结果" eventKey={0} bsStyle="primary" />
-            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="primary" />
+            {resultsRawData && resultsRawData.length > 0 && resultsRawData.map((r, k) => (
+              <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次复隔中结果"} eventKey={0} bsStyle="primary" key={k} />
+            ))}
           </PanelGroup>
         </Col>
       </Row>

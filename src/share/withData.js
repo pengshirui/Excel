@@ -6,7 +6,7 @@ export const withBaseData = compose(
   withState("args", "setArgs", ""),
   withState("result", "setResult", ""),
   withState("resultRawData", "setResultRawData", ""),
-  withState("patterns", "setPatterns",[]),
-  withState("results","setResults",[]),
-  withState("resultsRawData", "setResultsRawData",[])
+  withState("patterns", "setPatterns", []),
+  withState("results","setResults", []),
+  withState("resultsRawData", "setResultsRawData", [])
 )

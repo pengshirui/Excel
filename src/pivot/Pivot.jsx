@@ -8,6 +8,8 @@ import { CalculateButton } from '../share/CalculateButton.jsx';
 import { convertStrToArr } from '../util/Array.js';
 import { convertToBigSmall } from '../pivot/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
+import { generateResults} from '../share/Calculate.jsx';
+import { ResultData } from '../share/ResultData.jsx';
 import { withBaseData } from '../share/withData';
 
 const getValidationState = (args) => {
@@ -21,7 +23,8 @@ const getValidationState = (args) => {
 
 const enhance = compose(
   withBaseData,
-  withState("pivot", "setPivot", ""),
+  withState("leftMargin", "setLeftMargin", ""),
+  withState("rightMargin", "setRightMargin", ""),
   withHandlers({
     updateData: ({setData}) => (event) => {
       setData(event.target.value);
@@ -29,25 +32,42 @@ const enhance = compose(
     updateArgs: ({ setArgs }) => (event) => {
       setArgs(event.target.value);
     },
-    updatePivot: ({ setPivot }) => (event) => {
-      setPivot(event.target.value);
+    updateLeftMargin: ({ setLeftMargin }) => (event) => {
+      setLeftMargin(event.target.value);
     },
-    submit: ({ data, args, setResult, setBinaryData, setResultRawData, pivot }) => () => {
+    updateRightMargin: ({ setRightMargin }) => (event) => {
+      setRightMargin(event.target.value);
+    },
+    submit: ({ data, setBinaryData, patterns, results, resultsRawData, leftMargin, rightMargin}) => () => {  
+      // get the binary data
+      const dataArr = convertStrToArr(data);
+      const bData = convertToBigSmall(dataArr, parseInt(leftMargin), parseInt(rightMargin));
+      setBinaryData(bData);
+      generateResults(bData, dataArr, patterns, results, resultsRawData); 
+    },
+    submitUseManullayInputPattern: ({data, setBinaryData, args, patterns, resultsRawData, results, leftMargin, rightMargin}) => () => {
+      // clear all arrays
+      results.length = 0;
+      resultsRawData.length = 0;
+      patterns.length = 0;
+      
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToBigSmall(dataArr, parseInt(pivot));
+      const bData = convertToBigSmall(dataArr, parseInt(leftMargin), parseInt(rightMargin));
+      setBinaryData(bData);
       const result = checkPattern(bData, patternArr);
       const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
-      setBinaryData(bData);
-      setResultRawData(bRawData);
-      setResult(result);
+      patterns.push(patternArr);
+      resultsRawData.push(bRawData);
+      results.push(result);   
     }
   })
 );
 
 const component = (props) => {
-  const { csv, result, resultRawData, args, data, pivot, binaryData, updatePivot, updateArgs, updateData, setData, submit } = props;
-  const disabled = getValidationState(args) === 'error' || getValidationState(data) === 'error' || getValidationState(pivot) === 'error';
+  const { csv, args, data, leftMargin, rightMargin, binaryData, updateLeftMargin, updateRightMargin, updateArgs, updateData, setData, submit, submitUseManullayInputPattern, patterns, results, resultsRawData } = props;
+  const disabled = getValidationState(data) === 'error' || getValidationState(leftMargin) === 'error'|| getValidationState(rightMargin) === 'error';
+  const disabledForManualInput = getValidationState(args) === 'error' || getValidationState(data) === 'error' || getValidationState(leftMargin) === 'error'|| getValidationState(rightMargin) === 'error';
   return (
     <Grid fluid={true}>
       <Row>
@@ -55,18 +75,22 @@ const component = (props) => {
           <form>
             <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data}/>
             <BallButtons setData={setData} csv={csv} />
-            <FieldGroup label="分隔值" onChange={updatePivot} type="number" validationState={getValidationState(pivot)} placeholder="数字" />
+            <FieldGroup label="左边界值" onChange={updateLeftMargin} type="number" validationState={getValidationState(leftMargin)} placeholder="数字" />
+            <FieldGroup label="右边界值" onChange={updateRightMargin} type="number" validationState={getValidationState(rightMargin)} placeholder="数字" />
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据（大于等于分隔值为1，小于分隔值为0）" eventKey={0} bsStyle="success" />
+              <BallData b={binaryData} header="二进制数据（左右边界值之内（包括左右边界值）为0，在左右边界值之外为1）" eventKey={0} bsStyle="success" />
             </PanelGroup>
-            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割" />
             <CalculateButton onClick={submit} disabled={disabled} />
+            <br></br>
+            <FieldGroup label="模板" onChange={updateArgs} validationState={getValidationState(args)} placeholder="数字用逗号分割" />
+            <CalculateButton onClick={submitUseManullayInputPattern} disabled={disabledForManualInput} />
           </form>
         </Col>
         <Col xs={6}>
           <PanelGroup>
-            <BallData b={result} header="结果" eventKey={0} bsStyle="primary" />
-            <BallData b={resultRawData} header="结果对应原始数据" eventKey={0} bsStyle="primary" />
+            {resultsRawData && resultsRawData.length > 0 && resultsRawData.map((r, k) => (
+              <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次大小结果"} eventKey={0} bsStyle="primary" key={k} />
+            ))}
           </PanelGroup>
         </Col>
       </Row>
