@@ -6,7 +6,7 @@
     "scripts": {
         "validate": "eslint -c .eslintrc.json . --fix",
         "compile": "webpack --progress --display-error-details",
-        "build": "yarn && yarn compile && electron-packager ./dist lottery --arch=x64 --out=build/ --platform=win32 --overwrite",
+        "build": "yarn && yarn compile && electron-packager ./dist lottery --arch=x64 --out=build/1.1805.15 --platform=win32 --overwrite",
         "start": "yarn && yarn compile && electron dist/main.js"
     },
     "dependencies": {
