@@ -3,6 +3,7 @@ export const convertToColdWarmHot = (ballNumber, csv) => {
   for (let x = 0; x < 10; x++) res.push(0);
   for (let i = 10; i < csv.length; i++) {
     let num = (csv[i][ballNumber]);
+    if (num == null || num === "") continue;
     let count = 0;
     for (let j = 10; j > 0; j--) {
       if ((csv[i - j][0] === num) || (csv[i - j][1] === num) || (csv[i - j][2] === num) ||
