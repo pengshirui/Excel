@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { Col, Grid, PanelGroup, Row } from 'react-bootstrap';
+import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
 import { compose, withHandlers } from 'recompose';
 import { BallButtons } from '../share/BallButtons.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
+import { FieldGroup } from '../share/FieldGroup.jsx';
+import { ResultData } from '../share/ResultData.jsx';
 import { convertStrToArr } from '../util/Array';
 import { convertToPrimeComposite } from '../prime/Convert';
-import { FieldGroup } from '../share/FieldGroup.jsx';
 import { generateResults} from '../share/Calculate.jsx';
-import { ResultData } from '../share/ResultData.jsx';
 import { withBaseData } from '../share/withData';
 
 const enhance = compose(

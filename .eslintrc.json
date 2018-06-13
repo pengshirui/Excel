@@ -3,7 +3,8 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "parser": "babel-eslint",
     "parserOptions": {
@@ -36,7 +37,7 @@
         "sort-imports": [
             "error",
             {
-                "ignoreCase": true,
+                "ignoreCase": false,
                 "ignoreMemberSort": false,
                 "memberSyntaxSortOrder": [
                     "none",
@@ -47,5 +48,13 @@
             }
         ],
         "valid-typeof": "warn"
-    }
+    },
+    "overrides": [
+        {
+            "files": [
+                "src/*.js",
+                "src/*.jsx"
+            ]
+        }
+    ]
 }

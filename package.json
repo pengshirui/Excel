@@ -6,29 +6,33 @@
     "scripts": {
         "validate": "eslint -c .eslintrc.json . --fix",
         "compile": "webpack --progress --display-error-details",
-        "build": "yarn && yarn compile && yarn install && electron-packager ./dist lottery --arch=x64 --out=build/1.1806.1 --platform=win32 --overwrite",
+        "test": "jest",
+        "build": "yarn && yarn test && yarn compile && yarn install && electron-packager ./dist lottery --arch=x64 --out=build/1.1806.1 --platform=win32 --overwrite",
         "start": "yarn && yarn compile && electron dist/main.js"
     },
     "dependencies": {
-        "babel-core": "^6.26.0",
-        "babel-loader": "7.1.2",
-        "babel-preset-es2015": "^6.24.1",
-        "babel-preset-react": "^6.24.1",
-        "babel-preset-stage-0": "^6.24.1",
         "electron": "2.0.0",
         "electron-packager": "^10.1.0",
         "eslint-plugin-react": "^7.5.1",
         "react": "16.3.2",
         "react-bootstrap": "^0.31.5",
         "react-dom": "16.3.2",
-        "react-scripts": "^1.1.4",
         "recompose": "0.26.0"
     },
     "devDependencies": {
         "babel": "^6.23.0",
+        "babel-core": "^6.26.3",
         "babel-eslint": "^8.0.3",
+        "babel-loader": "7.1.2",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "babel-preset-stage-0": "^6.24.1",
         "copy-webpack-plugin": "^4.5.1",
         "eslint": "^4.13.1",
+        "jest": "^23.1.0",
         "webpack": "^3.10.0"
+    },
+    "jest": {
+        "rootDir": "src"
     }
 }
