@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { checkPattern, getRawDataWithPattern} from '../util/Pattern.js';
 import { Col, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { compose, withHandlers } from 'recompose';
+import { generateResults, generateResultWithManuInput, separateResults} from '../share/Calculate.jsx';
 import { BallButtons } from '../share/BallButtons.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
 import { convertStrToArr } from '../util/Array';
 import { convertToOddEven } from '../oddeven/Convert';
 import { FieldGroup } from '../share/FieldGroup.jsx';
-import { generateResults} from '../share/Calculate.jsx';
 import { ResultData } from '../share/ResultData.jsx';
 import { withBaseData } from '../share/withData';
 
@@ -23,28 +22,33 @@ const enhance = compose(
     updateArgs: ({setArgs}) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({data, setBinaryData, patterns, results, resultsRawData}) => () => {
+    submit: ({data, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData  }) => () => {
       // get the binary data
       const dataArr = convertStrToArr(data);
       const bData = convertToOddEven(dataArr);
       setBinaryData(bData);
-      generateResults(bData, dataArr, patterns, results, resultsRawData); 
+      const {patternsTemp, resultsTemp, resultRawDataTemp} = generateResults(bData, dataArr); 
+      const {zeroArr, oneArr, twoArr} = separateResults(resultsTemp, resultRawDataTemp);
+      setPatterns(patternsTemp);
+      setResults(resultsTemp);
+      setResultsRawData(resultRawDataTemp);
+      setZerosRawData(zeroArr);
+      setOnesRawData(oneArr);
+      setTwosRawData(twoArr);
     },
-    submitUseManullayInputPattern: ({data, setBinaryData, args, patterns, resultsRawData, results}) => () => {
-      // clear all arrays
-      results.length = 0;
-      resultsRawData.length = 0;
-      patterns.length = 0;
-      
+    submitUseManullayInputPattern: ({data, setBinaryData, args, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
       const bData = convertToOddEven(dataArr);
       setBinaryData(bData);
-      const result = checkPattern(bData, patternArr);
-      const bRawData = getRawDataWithPattern(bData, patternArr, dataArr);
-      patterns.push(patternArr);
-      resultsRawData.push(bRawData);
-      results.push(result);   
+      const {patternsTemp, resultsTemp, resultRawDataTemp} = generateResultWithManuInput(bData, patternArr, dataArr);
+      const {zeroArr, oneArr, twoArr} = separateResults(resultsTemp, resultRawDataTemp);
+      setPatterns(patternsTemp);
+      setResults(resultsTemp);
+      setResultsRawData(resultRawDataTemp);
+      setZerosRawData(zeroArr);
+      setOnesRawData(oneArr);
+      setTwosRawData(twoArr);
     }
   })
 );
@@ -59,7 +63,7 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {csv, setData, args, data, binaryData, updateArgs, updateData, submit, submitUseManullayInputPattern, patterns, results, resultsRawData } = props;
+  const {csv, setData, args, data, binaryData, updateArgs, updateData, submit, submitUseManullayInputPattern, patterns, results, resultsRawData, zerosRawData, onesRawData, twosRawData } = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(data);
   const disabledForManualInput = !regex.test(args) || !regex.test(data);
@@ -82,7 +86,8 @@ const component = (props) => {
         <Col xs={6}>
           <PanelGroup>
             {resultsRawData && resultsRawData.length > 0 && resultsRawData.map((r, k) => (
-              <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次奇偶结果"} eventKey={0} bsStyle="primary" key={k} />
+              <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次奇偶结果"} eventKey={0} bsStyle="primary" key={k} 
+                zeroRawData = {zerosRawData[k]} oneRawData = {onesRawData[k]} twoRawData = {twosRawData[k]}/>
             ))}
           </PanelGroup>
         </Col>

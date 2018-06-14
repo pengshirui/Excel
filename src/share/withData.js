@@ -8,5 +8,8 @@ export const withBaseData = compose(
   withState("resultRawData", "setResultRawData", ""),
   withState("patterns", "setPatterns", []),
   withState("results","setResults", []),
-  withState("resultsRawData", "setResultsRawData", [])
+  withState("resultsRawData", "setResultsRawData", []),
+  withState("zerosRawData", "setZerosRawData", []),
+  withState("onesRawData", "setOnesRawData", []),
+  withState("twosRawData", "setTwosRawData", [])
 )

@@ -6,7 +6,7 @@ import { BallButtons } from '../share/BallButtons.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
 import { convertStrToArr } from '../util/Array';
-import { convertToSecondRoute } from '../secondRoute/Convert.js';
+import { convertToUpDownEven } from '../upDownEven/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { ResultData } from '../share/ResultData.jsx';
 import { withBaseData } from '../share/withData';
@@ -24,7 +24,7 @@ const enhance = compose(
     submit: ({data, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData  }) => () => {
       // get the binary data
       const dataArr = convertStrToArr(data);
-      const bData = convertToSecondRoute(dataArr);
+      const bData = convertToUpDownEven(dataArr);
       setBinaryData(bData);
       const {patternsTemp, resultsTemp, resultRawDataTemp} = generateResults(bData, dataArr); 
       const {zeroArr, oneArr, twoArr} = separateResults(resultsTemp, resultRawDataTemp);
@@ -38,7 +38,7 @@ const enhance = compose(
     submitUseManullayInputPattern: ({data, setBinaryData, args, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData}) => () => {
       const dataArr = convertStrToArr(data);
       const patternArr = convertStrToArr(args);
-      const bData = convertToSecondRoute(dataArr);
+      const bData = convertToUpDownEven(dataArr);
       setBinaryData(bData);
       const {patternsTemp, resultsTemp, resultRawDataTemp} = generateResultWithManuInput(bData, patternArr, dataArr);
       const {zeroArr, oneArr, twoArr} = separateResults(resultsTemp, resultRawDataTemp);
@@ -62,7 +62,7 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {args, data, binaryData, updateArgs, updateData, submit, submitUseManullayInputPattern, setData, csv, patterns, results, resultsRawData, zerosRawData, onesRawData, twosRawData} = props;
+  const {args, data, binaryData, updateArgs, updateData, submit, submitUseManullayInputPattern, setData, csv, patterns, results, resultsRawData,  zerosRawData, onesRawData, twosRawData} = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(data);
   const disabledForManualInput = !regex.test(args) || !regex.test(data);
@@ -74,7 +74,7 @@ const component = (props) => {
             <FieldGroup label="数据" onChange={updateData} validationState={getValidationState(data)} placeholder="数字用逗号分割" value={data} />
             <BallButtons setData={setData} csv={csv} />
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据 （二路为1，其他为0）" eventKey={0} bsStyle="success" />
+              <BallData b={binaryData} header="二进制数据 （降是0，平是1，升是2）" eventKey={0} bsStyle="success" />
             </PanelGroup>
             <CalculateButton onClick={submit} disabled={disabled} />
             <br></br>
@@ -85,7 +85,7 @@ const component = (props) => {
         <Col xs={6}>
           <PanelGroup>
             {resultsRawData && resultsRawData.length > 0 && resultsRawData.map((r, k) => (
-              <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次2路结果"} eventKey={0} bsStyle="primary" key={k} 
+              <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次升降平结果"} eventKey={0} bsStyle="primary" key={k} 
                 zeroRawData = {zerosRawData[k]} oneRawData = {onesRawData[k]} twoRawData = {twosRawData[k]}/>
             ))}
           </PanelGroup>
@@ -95,4 +95,4 @@ const component = (props) => {
   );
 }
 
-export const SecondRoute = enhance(component);
+export const UpDownEven = enhance(component);

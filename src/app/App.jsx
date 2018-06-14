@@ -11,8 +11,9 @@ import { Prime as PrimeTab } from '../prime/Prime.jsx';
 import { readCsvAs2DArr } from '../util/File.js';
 import { Repeat as RepeatTab } from '../repeat/Repeat.jsx';
 import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
-import { SoloNextPass as SeloNextPassTab } from '../soloNextPass/SoloNextPass.jsx';
+import { SoloNextPass as SoloNextPassTab } from '../soloNextPass/SoloNextPass.jsx';
 import { ThreeRoute as ThreeRouteTab } from '../threeRoute/ThreeRoute.jsx';
+import { UpDownEven as UpDownEvenTab } from '../upDownEven/UpDownEven.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
 
 const left = {
@@ -85,6 +86,7 @@ const component = (props) => {
                 <NavItem eventKey={9} >冷温热</NavItem>
                 <NavItem eventKey={10} >复隔中</NavItem>
                 <NavItem eventKey={11} >孤邻传</NavItem>
+                <NavItem eventKey={12} >升降平</NavItem>
               </Nav>
               <Tab.Content animation style={margin}>
                 <Tab.Pane eventKey={0}>
@@ -121,7 +123,10 @@ const component = (props) => {
                   <RepeatTab csv={csv} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={11}>
-                  <SeloNextPassTab csv={csv} />
+                  <SoloNextPassTab csv={csv} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={12}>
+                  <UpDownEvenTab csv={csv} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
