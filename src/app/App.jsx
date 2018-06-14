@@ -8,13 +8,13 @@ import { OddEven as OddEvenTab } from '../oddeven/OddEven.jsx';
 import { Origin as OriginTab } from '../origin/Origin.jsx';
 import { Pivot as PivotTab } from '../pivot/Pivot.jsx';
 import { Prime as PrimeTab } from '../prime/Prime.jsx';
-import { readCsvAs2DArr } from '../util/File.js';
 import { Repeat as RepeatTab } from '../repeat/Repeat.jsx';
 import { SecondRoute as SecondRouteTab } from '../secondRoute/SecondRoute.jsx';
 import { SoloNextPass as SoloNextPassTab } from '../soloNextPass/SoloNextPass.jsx';
 import { ThreeRoute as ThreeRouteTab } from '../threeRoute/ThreeRoute.jsx';
 import { UpDownEven as UpDownEvenTab } from '../upDownEven/UpDownEven.jsx';
 import { ZeroRoute as ZeroRouteTab } from '../zeroRoute/ZeroRoute.jsx';
+import { readCsvAs2DArr } from '../util/File.js';
 
 const left = {
   backgroundColor: '#337ab7',
