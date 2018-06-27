@@ -11,5 +11,8 @@ export const withBaseData = compose(
   withState("resultsRawData", "setResultsRawData", []),
   withState("zerosRawData", "setZerosRawData", []),
   withState("onesRawData", "setOnesRawData", []),
-  withState("twosRawData", "setTwosRawData", [])
+  withState("twosRawData", "setTwosRawData", []),
+  withState("one", "setOne", ""),
+  withState("two", "setTwo", ""),
+  withState("zero", "setZero", "")
 )

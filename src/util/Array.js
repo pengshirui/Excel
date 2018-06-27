@@ -41,3 +41,22 @@ export const convertStrToArr = (str) => {
   let numArr = arr.map(Number)
   return numArr;
 }
+
+export const separateResultsManullyInput = (data, binaryData) => {
+  const zero = [];
+  const one = [];
+  const two = [];
+  for (let j = 0; j < binaryData.length; j++) {
+    if (binaryData[j] === 0) {
+      zero.push(data[j]);
+    } else if (binaryData[j] === 1) {
+      one.push(data[j]);
+    } else if (binaryData[j] === 2) {
+      two.push(data[j]);
+    }
+  }
+  const zeroArrInput = zero ? zero.join() : undefined;
+  const oneArrInput = one ? one.join() : undefined;
+  const twoArrInput = two ? two.join() : undefined;
+  return {zeroArrInput, oneArrInput, twoArrInput};
+}

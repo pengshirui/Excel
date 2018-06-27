@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Col, Grid, PanelGroup, Row } from 'react-bootstrap';
 import { compose, withHandlers, withState } from 'recompose';
-import { generateResults, generateResultWithManuInput, separateResults} from '../share/Calculate.jsx';
+import { convertStrToArr, separateResultsManullyInput } from '../util/Array.js';
+import { generateResultWithManuInput, generateResults, separateResults} from '../share/Calculate.jsx';
 import { BallButtons } from '../share/BallButtons.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
-import { convertStrToArr } from '../util/Array.js';
-import { convertToBigSmall } from '../pivot/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { ResultData } from '../share/ResultData.jsx';
+import { convertToBigSmall } from '../pivot/Convert.js';
 import { withBaseData } from '../share/withData';
+
 
 const getValidationState = (args) => {
   const regex = /^\d+(,\d+)*$/;
@@ -37,10 +38,14 @@ const enhance = compose(
     updateRightMargin: ({ setRightMargin }) => (event) => {
       setRightMargin(event.target.value);
     },
-    submit: ({data, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData, leftMargin, rightMargin  }) => () => {
+    submit: ({data, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData, leftMargin, rightMargin, setZero, setOne, setTwo   }) => () => {
       // get the binary data
       const dataArr = convertStrToArr(data);
       const bData = convertToBigSmall(dataArr, parseInt(leftMargin), parseInt(rightMargin));
+      const {zeroArrInput, oneArrInput, twoArrInput} = separateResultsManullyInput(dataArr, bData);
+      setZero(zeroArrInput);
+      setOne(oneArrInput);
+      setTwo(twoArrInput);
       setBinaryData(bData);
       const {patternsTemp, resultsTemp, resultRawDataTemp} = generateResults(bData, dataArr); 
       const {zeroArr, oneArr, twoArr} = separateResults(resultsTemp, resultRawDataTemp);
@@ -69,7 +74,7 @@ const enhance = compose(
 );
 
 const component = (props) => {
-  const { csv, args, data, leftMargin, rightMargin, binaryData, updateLeftMargin, updateRightMargin, updateArgs, updateData, setData, submit, submitUseManullayInputPattern, patterns, results, resultsRawData, zerosRawData, onesRawData, twosRawData } = props;
+  const { csv, args, data, leftMargin, rightMargin, binaryData, updateLeftMargin, updateRightMargin, updateArgs, updateData, setData, submit, submitUseManullayInputPattern, patterns, results, resultsRawData, zerosRawData, onesRawData, one, two, zero } = props;
   const disabled = getValidationState(data) === 'error' || getValidationState(leftMargin) === 'error'|| getValidationState(rightMargin) === 'error';
   const disabledForManualInput = getValidationState(args) === 'error' || getValidationState(data) === 'error' || getValidationState(leftMargin) === 'error'|| getValidationState(rightMargin) === 'error';
   return (
@@ -82,7 +87,7 @@ const component = (props) => {
             <FieldGroup label="左边界值" onChange={updateLeftMargin} type="number" validationState={getValidationState(leftMargin)} placeholder="数字" />
             <FieldGroup label="右边界值" onChange={updateRightMargin} type="number" validationState={getValidationState(rightMargin)} placeholder="数字" />
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据（左右边界值之内（包括左右边界值）为0，在左右边界值之外为1）" eventKey={0} bsStyle="success" />
+              <BallData b={binaryData} one={one} two={two} zero={zero} header="二进制数据（左右边界值之内（包括左右边界值）为0，在左右边界值之外为1）" eventKey={0} bsStyle="success" />
             </PanelGroup>
             <CalculateButton onClick={submit} disabled={disabled} />
             <br></br>
@@ -94,7 +99,7 @@ const component = (props) => {
           <PanelGroup>
             {resultsRawData && resultsRawData.length > 0 && resultsRawData.map((r, k) => (
               <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第"+(k+1)+"次大小结果"} eventKey={0} bsStyle="primary" key={k} 
-                zeroRawData = {zerosRawData[k]} oneRawData = {onesRawData[k]} twoRawData = {twosRawData[k]}/>
+                zeroRawData = {zerosRawData[k]} oneRawData = {onesRawData[k]} />
             ))}
           </PanelGroup>
         </Col>

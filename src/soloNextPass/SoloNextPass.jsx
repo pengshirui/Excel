@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { ButtonToolbar, Col, FormGroup, Grid, PanelGroup, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { compose, withHandlers, withState } from 'recompose';
-import { convertStrToArr, getColAsStr } from '../util/Array';
-import { generateResults, generateResultWithManuInput, separateResults} from '../share/Calculate.jsx';
+import { convertStrToArr, getColAsStr , separateResultsManullyInput} from '../util/Array';
+import { generateResultWithManuInput, generateResults, separateResults} from '../share/Calculate.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
-import { convertToSoloNextPass } from '../soloNextPass/Convert.js';
 import { FieldGroup } from '../share/FieldGroup.jsx';
 import { ResultData } from '../share/ResultData.jsx';
+import { convertToSoloNextPass } from '../soloNextPass/Convert.js';
 import { withBaseData } from '../share/withData';
 
 const enhance = compose(
@@ -22,10 +22,14 @@ const enhance = compose(
     updateArgs: ({ setArgs }) => (event) => {
       setArgs(event.target.value);
     },
-    submit: ({ ballNumber, csv, data, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData  }) => () => {
+    submit: ({ ballNumber, csv, data, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData,  setZero, setOne, setTwo  }) => () => {
       // get the binary data
       const dataArr = convertStrToArr(data);
       const bData = convertToSoloNextPass(ballNumber, csv);
+      const {zeroArrInput, oneArrInput, twoArrInput} = separateResultsManullyInput(dataArr, bData);
+      setZero(zeroArrInput);
+      setOne(oneArrInput);
+      setTwo(twoArrInput);
       setBinaryData(bData);
       const {patternsTemp, resultsTemp, resultRawDataTemp} = generateResults(bData, dataArr); 
       const {zeroArr, oneArr, twoArr} = separateResults(resultsTemp, resultRawDataTemp);
@@ -63,7 +67,7 @@ const getValidationState = (args) => {
 }
 
 const component = (props) => {
-  const {args, data, binaryData, updateArgs, updateDataByBtn, submit, submitUseManullayInputPattern,  patterns, results, resultsRawData, zerosRawData, onesRawData, twosRawData  } = props;
+  const {args, data, binaryData, updateArgs, updateDataByBtn, submit, submitUseManullayInputPattern,  patterns, results, resultsRawData, zerosRawData, onesRawData, twosRawData ,one, zero, two } = props;
   const regex = /^\d+(,\d+)*$/;
   const disabled = !regex.test(data);
   const disabledForManualInput = !regex.test(args) || !regex.test(data);
@@ -87,7 +91,7 @@ const component = (props) => {
               </ButtonToolbar>
             </FormGroup>
             <PanelGroup>
-              <BallData b={binaryData} header="二进制数据 (孤为0，邻为1，传为2）" eventKey={0} bsStyle="success" />
+              <BallData b={binaryData} one={one} two={two} zero={zero} header="二进制数据 (孤为0，邻为1，传为2）" eventKey={0} bsStyle="success" />
             </PanelGroup>
             <CalculateButton onClick={submit} disabled={disabled} />
             <br></br>
