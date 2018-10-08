@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Col, Glyphicon, Grid, Nav, NavItem, Row, Tab } from 'react-bootstrap';
 import { compose, withHandlers, withState } from 'recompose';
+import { All as AllTab} from '../all/All.jsx';
 import { ColdWarmHot as ColdWarmHotTab } from '../coldWarmHot/ColdWarmHot.jsx';
 import { FirstRoute as FirstRouteTab } from '../firstRoute/FirstRoute.jsx';
 import { Home as HomeTab } from '../home/Home.jsx';
@@ -74,7 +75,7 @@ const component = (props) => {
           <Row className="clearfix">
             <Col sm={12}>
               <Nav bsStyle="tabs" justified={true}>
-                <NavItem eventKey={0} >文件</NavItem>
+                <NavItem eventKey={0} >文件</NavItem>               
                 <NavItem eventKey={1} >大小</NavItem>
                 <NavItem eventKey={2} >质和</NavItem>
                 <NavItem eventKey={3} >奇偶</NavItem>
@@ -87,6 +88,7 @@ const component = (props) => {
                 <NavItem eventKey={10} >复隔中</NavItem>
                 <NavItem eventKey={11} >孤邻传</NavItem>
                 <NavItem eventKey={12} >升降平</NavItem>
+                <NavItem eventKey={13} >新版</NavItem>
               </Nav>
               <Tab.Content animation style={margin}>
                 <Tab.Pane eventKey={0}>
@@ -127,6 +129,9 @@ const component = (props) => {
                 </Tab.Pane>
                 <Tab.Pane eventKey={12}>
                   <UpDownEvenTab csv={csv} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={13}>
+                  <AllTab csv={csv} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

@@ -15,7 +15,7 @@ const rStyle = {
 
 export const BallData = (props) => {
   const { b, header, eventKey, bsStyle, one, two, zero} = props;
-  const content = b ? b.join() : undefined;
+  const content = b ? b.join() : "";
   //const {zero, one, two} = separateResultsManullyInput(data, b);
   return (
     <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={bsStyle} defaultExpanded={true} >
@@ -24,8 +24,13 @@ export const BallData = (props) => {
       <div style={rStyle}>{zero}</div>
       <div>所有1对应原始数据</div>
       <div style={rStyle}>{one}</div>
-      <div>所有2对应原始数据</div>
-      <div style={rStyle}>{two}</div>
+      {
+        two && 
+        <div>
+          <div>所有2对应原始数据</div>
+          <div style={rStyle}>{two}</div>
+        </div>
+      }
     </Panel>
   );
 }

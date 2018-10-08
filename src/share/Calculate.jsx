@@ -30,6 +30,42 @@ export const generateResultWithManuInput = (bData, patternArr, dataArr) => {
   return {patternsTemp, resultsTemp, resultRawDataTemp};
 }
 
+export const generateSecondCalculationResult = (result, secondSelection, getBinaryDataBySelectedFunctin, leftMargin, rightMargin) => {
+  var secondAllResults = [];
+  var resultsAsInputArr = result.resultRawDataTemp;
+  for (let index = 0; index < resultsAsInputArr.length; index++)
+  {
+    var dataArr = resultsAsInputArr[index];
+    const {bData} = getBinaryDataBySelectedFunctin(dataArr, secondSelection, leftMargin, rightMargin);
+    const secondResultsArray = generateResults(bData, dataArr);
+    const secondPatterns = secondResultsArray.patternsTemp;
+    const secondResults = secondResultsArray.resultsTemp;
+    const secondResultRawData = secondResultsArray.resultRawDataTemp;
+    const { zeroArr, oneArr, twoArr } = separateResults(secondResults, secondResultRawData);
+    
+    secondAllResults.push({secondResults, secondPatterns, secondResultRawData, zeroArr, oneArr, twoArr});
+  }
+  return secondAllResults;
+}
+
+export const generateSecondCalculationResultWithManuInput = (result, secondSelection, getBinaryDataBySelectedFunctin, leftMargin, rightMargin, secondPatternArr) => {
+  var secondAllResults = [];
+  var resultsAsInputArr = result.resultRawDataTemp;
+  for (let index = 0; index < resultsAsInputArr.length; index++)
+  {
+    var dataArr = resultsAsInputArr[index];
+    const {bData} = getBinaryDataBySelectedFunctin(dataArr, secondSelection, leftMargin, rightMargin);
+    const secondResultsArray = generateResultWithManuInput(bData, secondPatternArr, dataArr);
+    const secondPatterns = secondResultsArray.patternsTemp;
+    const secondResults = secondResultsArray.resultsTemp;
+    const secondResultRawData = secondResultsArray.resultRawDataTemp;
+    const { zeroArr, oneArr, twoArr } = separateResults(secondResults, secondResultRawData);
+    
+    secondAllResults.push({secondResults, secondPatterns, secondResultRawData, zeroArr, oneArr, twoArr});
+  }
+  return secondAllResults;
+}
+
 export const separateResults = (results, resultsRawData) => {
   const zeroArr = [];
   const oneArr = [];

@@ -4,6 +4,7 @@ export const withBaseData = compose(
   withState("data", "setData", ""),
   withState("binaryData", "setBinaryData", ""),
   withState("args", "setArgs", ""),
+  withState("secondArgs", "setSecondArgs", ""),
   withState("result", "setResult", ""),
   withState("resultRawData", "setResultRawData", ""),
   withState("patterns", "setPatterns", []),
@@ -14,5 +15,11 @@ export const withBaseData = compose(
   withState("twosRawData", "setTwosRawData", []),
   withState("one", "setOne", ""),
   withState("two", "setTwo", ""),
-  withState("zero", "setZero", "")
+  withState("zero", "setZero", ""),
+  withState("secondResults", "setSecondResults", ""),
+  withState("secondResultsRawData", "setSecondResultsRawData", ""),
+  withState("secondPatterns", "setSecondPatterns", ""),
+  withState("secondZeroArr", "setSecondZeroArr", ""),
+  withState("secondOneArr", "setSecondOneArr", ""),
+  withState("secondTwoArr", "setSecondTwoArr", "")
 )

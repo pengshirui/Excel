@@ -4,9 +4,10 @@ import { compose, withHandlers, withState } from 'recompose';
 import { BallButtons } from '../share/BallButtons.jsx';
 import { BallData } from '../share/BallData.jsx';
 import { CalculateButton } from '../share/CalculateButton.jsx';
+import { FieldGroup } from '../share/FieldGroup.jsx';
 import { checkPattern } from '../util/Pattern.js';
 import { convertStrToArr } from '../util/Array';
-import { FieldGroup } from '../share/FieldGroup.jsx';
+
 
 const enhance = compose(
   withState("data", "setData", ""),

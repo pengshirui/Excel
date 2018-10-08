@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, PanelGroup } from 'react-bootstrap';
 
 const wStyle = {
   width: '100%',
@@ -12,13 +12,14 @@ const zeroStyle = {
 };
 
 export const ResultData = (props) => {
-  const { pattern, resultData, resultRawData, header, eventKey, bsStyle, zeroRawData, oneRawData, twoRawData } = props;
-  const contentPattern = pattern ? pattern.join() : undefined;
-  const content = resultData ? resultData.join() : undefined;
-  const contentRaw = resultRawData ? resultRawData.join() : undefined;
-  const contentZero = zeroRawData ? zeroRawData.join() : undefined;
-  const contextOne = oneRawData ? oneRawData.join() : undefined;
-  const contextTwo = twoRawData ? twoRawData.join() : undefined;
+  const { pattern, resultData, resultRawData, header, eventKey, bsStyle, zeroRawData, oneRawData, twoRawData,
+    secondResultsRawData,  secondPatterns, secondResults, secondZeroArr, secondOneArr, secondTwoArr} = props;
+  const contentPattern = pattern ? pattern.join() : "";
+  const content = resultData ? resultData.join() : "";
+  const contentRaw = resultRawData ? resultRawData.join() : "";
+  const contentZero = zeroRawData ? zeroRawData.join() : "";
+  const contextOne = oneRawData ? oneRawData.join() : "";
+  const contextTwo = twoRawData ? twoRawData.join() : "";
   return (
     <Panel collapsible={true} header={header} eventKey={eventKey} bsStyle={bsStyle} defaultExpanded={true} >
       <div >模板</div>
@@ -29,12 +30,37 @@ export const ResultData = (props) => {
       <div></div>
       <div>结果对应原始数据</div>
       <div style={wStyle}>{contentRaw}</div>
+      <div></div>
       <div >所有0对应原始数据</div>
       <div style={zeroStyle}>{contentZero}</div>
       <div >所有1对应原始数据</div>
       <div style={zeroStyle}>{contextOne}</div>
-      <div >所有2对应原始数据</div>
-      <div style={zeroStyle}>{contextTwo}</div>
+      {contextTwo && 
+        <div>
+          <div>所有2对应原始数据</div>
+          <div style={zeroStyle}>{contextTwo}</div>
+        </div>
+      }
+      <br></br>
+      {secondResultsRawData && 
+      <div>第二次计算</div>
+      }
+      <PanelGroup>
+        {secondResultsRawData && secondResultsRawData.length > 0 && secondResultsRawData.map((r, k) => (
+          <ResultData 
+            pattern={secondPatterns[k]} 
+            resultData={secondResults[k]} 
+            resultRawData={r} 
+            header={"第" + (k + 1) + "次结果"} 
+            eventKey={0} 
+            bsStyle="info" 
+            key={k} 
+            zeroRawData={secondZeroArr[k]} 
+            oneRawData={secondOneArr[k]} 
+            twoRawData={secondTwoArr[k]} 
+          />
+        ))}
+      </PanelGroup>
     </Panel>
   );
 }
