@@ -68,42 +68,6 @@ const enhance = compose(
     updateSecondArgs: ({ setSecondArgs }) => (event) => {
       setSecondArgs(event.target.value);
     },
-    submit: ({ data, selection, setBinaryData, setPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData, setZero, setOne, setTwo }) => () => {
-      // get the binary data
-      const dataArr = convertStrToArr(data);
-      var selectionNum = parseInt(selection);
-      var selectedFunction = getFunctionBySelection(selectionNum);
-      const bData = selectedFunction(dataArr);
-      const { zeroArrInput, oneArrInput, twoArrInput } = separateResultsManullyInput(dataArr, bData);
-      setZero(zeroArrInput);
-      setOne(oneArrInput);
-      setTwo(twoArrInput);
-      setBinaryData(bData);
-      const { patternsTemp, resultsTemp, resultRawDataTemp } = generateResults(bData, dataArr);
-      const { zeroArr, oneArr, twoArr } = separateResults(resultsTemp, resultRawDataTemp);
-      setPatterns(patternsTemp);
-      setResults(resultsTemp);
-      setResultsRawData(resultRawDataTemp);
-      setZerosRawData(zeroArr);
-      setOnesRawData(oneArr);
-      setTwosRawData(twoArr);
-    },
-    submitUseManullayInputPattern: ({ data, firstSelection, setBinaryData, args, setPatterns, setResultsRawData,  setResults, setZerosRawData, setOnesRawData, setTwosRawData }) => () => {
-      const dataArr = convertStrToArr(data);
-      const patternArr = convertStrToArr(args);
-      var selectionNum = parseInt(firstSelection);
-      var selectedFunction = getFunctionBySelection(selectionNum);
-      const bData = selectedFunction(dataArr);
-      setBinaryData(bData);
-      const { patternsTemp, resultsTemp, resultRawDataTemp } = generateResultWithManuInput(bData, patternArr, dataArr);
-      const { zeroArr, oneArr, twoArr } = separateResults(resultsTemp, resultRawDataTemp);
-      setPatterns(patternsTemp);
-      setResults(resultsTemp);
-      setResultsRawData(resultRawDataTemp);
-      setZerosRawData(zeroArr);
-      setOnesRawData(oneArr);
-      setTwosRawData(twoArr);
-    },
     submitAll : ({ data, args, secondArgs,secondLeftMargin, secondRightMargin, leftMargin, rightMargin, firstSelection, secondSelection, setBinaryData, setPatterns, setSecondZeroArr,setSecondTwoArr, setSecondOneArr, setSecondResults, setSecondResultsRawData, setSecondPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData, setZero, setOne, setTwo, checkboxCheckedFirstPattern, checkboxCheckedSecondPattern, checkboxChecked})  => () => {
       const dataArr = convertStrToArr(data);
       const {bData} = getBinaryDataBySelectedFunctin(dataArr, firstSelection, leftMargin, rightMargin);
@@ -121,7 +85,7 @@ const enhance = compose(
       else if (checkboxCheckedFirstPattern)
       {
         result = generateResultWithManuInput(bData, patternArr, dataArr);
-      } 
+      }
       // first calculation results
       patternsTemp = result.patternsTemp ;
       resultsTemp = result.resultsTemp;
@@ -142,19 +106,19 @@ const enhance = compose(
       setTwosRawData(twoArr);
 
       // second calculation
-      if (!checkboxChecked) return;
-      
-      var secondAllResultsArr;
+      var secondAllResultsArr = [];
       var secondResults = [];
       var secondResultsRawData = [];
       var secondPatterns = [];
       var secondZeroArr = [];
       var secondOneArr = [];
       var secondTwoArr = [];
-      if (!checkboxCheckedSecondPattern) 
+
+      if (checkboxChecked && !checkboxCheckedSecondPattern) 
       {
         secondAllResultsArr = generateSecondCalculationResult(result, secondSelection, getBinaryDataBySelectedFunctin, leftMargin, rightMargin);
-      }else if (checkboxCheckedSecondPattern)
+      } 
+      else if (checkboxChecked && checkboxCheckedSecondPattern)
       {
         secondAllResultsArr = generateSecondCalculationResultWithManuInput(result, secondSelection, getBinaryDataBySelectedFunctin, secondLeftMargin, secondRightMargin, secondPatternArr);
       } 
@@ -198,8 +162,6 @@ var getFunctionBySelection = (selection) => {
       return convertToPrimeComposite;
     case 2:
       return convertToOddEven;
-    case 3:
-      return null;
     case 4:
       return convertToThreeRoute;
     case 5:
@@ -253,11 +215,11 @@ const disabled = (
   }
   if (firstSelection == 3)
   {
-    if (!regex.test(args)) return true;
+    return true;
   }
   if (checkboxChecked && secondSelection == 3)
   {
-    if (!regex.test(secondArgs)) return true;
+    return true;
   }
   return false;
 }
