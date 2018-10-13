@@ -1,4 +1,5 @@
 import { checkPattern, getRawDataWithPattern } from '../util/Pattern.js';
+import {separateResultsManullyInput} from '../util/Array.js';
 
 export const generateResults = (bData, dataArr) => {
   const patternsTemp = [];
@@ -6,6 +7,10 @@ export const generateResults = (bData, dataArr) => {
   const resultRawDataTemp = [];
   for (let index = bData.length - 1; index >= 1; index--) {
     const {patternArr, index} = getPatternFromBinaryData(bData, index);
+    if (patternArr == null || index == null)
+    {
+      break;
+    }
     const result = checkPattern(bData, patternArr);
     if (result === null || result.length === 0) {
       break;
@@ -37,13 +42,15 @@ export const generateSecondCalculationResult = (result, secondSelection, getBina
   {
     var dataArr = resultsAsInputArr[index];
     const {bData} = getBinaryDataBySelectedFunctin(dataArr, secondSelection, leftMargin, rightMargin);
+    const { zeroArrInput, oneArrInput, twoArrInput } = separateResultsManullyInput(dataArr, bData);
+
     const secondResultsArray = generateResults(bData, dataArr);
     const secondPatterns = secondResultsArray.patternsTemp;
     const secondResults = secondResultsArray.resultsTemp;
     const secondResultRawData = secondResultsArray.resultRawDataTemp;
     const { zeroArr, oneArr, twoArr } = separateResults(secondResults, secondResultRawData);
     
-    secondAllResults.push({secondResults, secondPatterns, secondResultRawData, zeroArr, oneArr, twoArr});
+    secondAllResults.push({secondResults, secondPatterns, secondResultRawData, zeroArr, oneArr, twoArr, bData, zeroArrInput, oneArrInput, twoArrInput});
   }
   return secondAllResults;
 }
@@ -101,6 +108,7 @@ export const getPatternFromBinaryData = (bData, index) => {
       return {patternArr, index};
     }
   }
+  return {};
 }
   
   

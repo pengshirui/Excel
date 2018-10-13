@@ -55,8 +55,8 @@ export const separateResultsManullyInput = (data, binaryData) => {
       two.push(data[j]);
     }
   }
-  const zeroArrInput = zero ? zero.join() : undefined;
-  const oneArrInput = one ? one.join() : undefined;
-  const twoArrInput = two ? two.join() : undefined;
+  const zeroArrInput = zero ? zero.join() : "";
+  const oneArrInput = one ? one.join() : "";
+  const twoArrInput = two ? two.join() : "";
   return {zeroArrInput, oneArrInput, twoArrInput};
 }

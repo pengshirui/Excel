@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Panel, PanelGroup } from 'react-bootstrap';
+import { BallData } from '../share/BallData.jsx';
 
 const wStyle = {
   width: '100%',
@@ -13,7 +14,8 @@ const zeroStyle = {
 
 export const ResultData = (props) => {
   const { pattern, resultData, resultRawData, header, eventKey, bsStyle, zeroRawData, oneRawData, twoRawData,
-    secondResultsRawData,  secondPatterns, secondResults, secondZeroArr, secondOneArr, secondTwoArr} = props;
+    secondResultsRawData,  secondPatterns, secondResults, secondZeroArr, secondOneArr, secondTwoArr, 
+    secondBData, secondBDataZeroArr, secondBDataOneArr, secondBDataTwoArr} = props;
   const contentPattern = pattern ? pattern.join() : "";
   const content = resultData ? resultData.join() : "";
   const contentRaw = resultRawData ? resultRawData.join() : "";
@@ -45,6 +47,12 @@ export const ResultData = (props) => {
       {secondResultsRawData && 
       <div>第二次计算</div>
       }
+      <PanelGroup>
+        {
+          secondBData && 
+          < BallData b={secondBData} zero={secondBDataZeroArr} one={secondBDataOneArr} two={secondBDataTwoArr} header="二进制数据" eventKey={0} bsStyle="success" />
+        }       
+      </PanelGroup>
       <PanelGroup>
         {secondResultsRawData && secondResultsRawData.length > 0 && secondResultsRawData.map((r, k) => (
           <ResultData 

@@ -21,5 +21,9 @@ export const withBaseData = compose(
   withState("secondPatterns", "setSecondPatterns", ""),
   withState("secondZeroArr", "setSecondZeroArr", ""),
   withState("secondOneArr", "setSecondOneArr", ""),
-  withState("secondTwoArr", "setSecondTwoArr", "")
+  withState("secondTwoArr", "setSecondTwoArr", ""),
+  withState("secondBData", "setSecondBData", ""),
+  withState("secondBDataZeroArr", "setSecondBDataZeroArr", ""),
+  withState("secondBDataOneArr", "setSecondBDataOneArr", ""),
+  withState("secondBDataTwoArr", "setSecondBDataTwoArr", "")
 )

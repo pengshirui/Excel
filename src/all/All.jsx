@@ -68,7 +68,7 @@ const enhance = compose(
     updateSecondArgs: ({ setSecondArgs }) => (event) => {
       setSecondArgs(event.target.value);
     },
-    submitAll : ({ data, args, secondArgs,secondLeftMargin, secondRightMargin, leftMargin, rightMargin, firstSelection, secondSelection, setBinaryData, setPatterns, setSecondZeroArr,setSecondTwoArr, setSecondOneArr, setSecondResults, setSecondResultsRawData, setSecondPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData, setZero, setOne, setTwo, checkboxCheckedFirstPattern, checkboxCheckedSecondPattern, checkboxChecked})  => () => {
+    submitAll : ({setSecondBData, setSecondBDataZeroArr, setSecondBDataOneArr,setSecondBDataTwoArr, data, args, secondArgs,secondLeftMargin, secondRightMargin, leftMargin, rightMargin, firstSelection, secondSelection, setBinaryData, setPatterns, setSecondZeroArr,setSecondTwoArr, setSecondOneArr, setSecondResults, setSecondResultsRawData, setSecondPatterns, setResultsRawData, setResults, setZerosRawData, setOnesRawData, setTwosRawData, setZero, setOne, setTwo, checkboxCheckedFirstPattern, checkboxCheckedSecondPattern, checkboxChecked})  => () => {
       const dataArr = convertStrToArr(data);
       const {bData} = getBinaryDataBySelectedFunctin(dataArr, firstSelection, leftMargin, rightMargin);
       const { zeroArrInput, oneArrInput, twoArrInput } = separateResultsManullyInput(dataArr, bData);
@@ -113,6 +113,10 @@ const enhance = compose(
       var secondZeroArr = [];
       var secondOneArr = [];
       var secondTwoArr = [];
+      var secondBData = [];
+      var secondBDataZeroArr = [];
+      var secondBDataOneArr = [];
+      var secondBDataTwoArr = [];
 
       if (checkboxChecked && !checkboxCheckedSecondPattern) 
       {
@@ -130,6 +134,10 @@ const enhance = compose(
         secondZeroArr.push(secondAllResultsArr[i].zeroArr);
         secondOneArr.push(secondAllResultsArr[i].oneArr);
         secondTwoArr.push(secondAllResultsArr[i].twoArr);
+        secondBData.push(secondAllResultsArr[i].bData);
+        secondBDataZeroArr.push(secondAllResultsArr[i].zeroArrInput);
+        secondBDataOneArr.push(secondAllResultsArr[i].oneArrInput);
+        secondBDataTwoArr.push(secondAllResultsArr[i].twoArrInput);
       }
       setSecondResults(secondResults);
       setSecondResultsRawData(secondResultsRawData);
@@ -137,6 +145,10 @@ const enhance = compose(
       setSecondZeroArr(secondZeroArr);
       setSecondOneArr(secondOneArr);
       setSecondTwoArr(secondTwoArr);
+      setSecondBData(secondBData);
+      setSecondBDataZeroArr(secondBDataZeroArr);
+      setSecondBDataOneArr(secondBDataOneArr);
+      setSecondBDataTwoArr(secondBDataTwoArr);
     }
   })
 );
@@ -250,6 +262,10 @@ const component = (props) => {
     one, 
     two, 
     zero, 
+    secondBData,
+    secondBDataZeroArr,
+    secondBDataOneArr,
+    secondBDataTwoArr,
     updateFirstSelectionByBtn, 
     updateSecondSelectionByBtn, 
     secondResultsRawData,  
@@ -343,7 +359,8 @@ const component = (props) => {
               <ResultData pattern={patterns[k]} resultData={results[k]} resultRawData={r} header={"第" + (k + 1) + "次结果"} eventKey={0} bsStyle="primary" key={k}
                 zeroRawData={zerosRawData[k]} oneRawData={onesRawData[k]} twoRawData = {twosRawData[k]}
                 secondResultsRawData = {secondResultsRawData[k]} secondPatterns = {secondPatterns[k]} secondResults = {secondResults[k]} 
-                secondZeroArr = {secondZeroArr[k]} secondOneArr = {secondOneArr[k]} secondTwoArr = {secondTwoArr[k]}/>
+                secondZeroArr = {secondZeroArr[k]} secondOneArr = {secondOneArr[k]} secondTwoArr = {secondTwoArr[k]}
+                secondBData = {secondBData[k]} secondBDataZeroArr = {secondBDataZeroArr[k]} secondBDataOneArr = {secondBDataOneArr[k]} secondBDataTwoArr = {secondBDataTwoArr[k]}/>
             ))}
           </PanelGroup>
         </Col>
