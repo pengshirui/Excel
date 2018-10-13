@@ -299,8 +299,8 @@ const component = (props) => {
               {
                 (firstSelection == 0) && 
                 <div>
-                  <FieldGroup label="左边界值" onChange={updateLeftMargin} type="number" validationState={getValidationState(leftMargin)} placeholder="数字" />
-                  <FieldGroup label="右边界值" onChange={updateRightMargin} type="number" validationState={getValidationState(rightMargin)} placeholder="数字" />
+                  <FieldGroup label="左边界值" onChange={updateLeftMargin} type="number" validationState={getValidationState(leftMargin)} value={leftMargin} placeholder="数字" />
+                  <FieldGroup label="右边界值" onChange={updateRightMargin} type="number" validationState={getValidationState(rightMargin)} value={rightMargin} placeholder="数字" />
                 </div>
               }
               <br></br>
@@ -322,8 +322,8 @@ const component = (props) => {
                 {
                   (secondSelection == 0) && 
                   <div>
-                    <FieldGroup label="左边界值" onChange={updateSecondLeftMargin} type="number" validationState={getValidationState(secondLeftMargin)} placeholder="数字" />
-                    <FieldGroup label="右边界值" onChange={updateSecondRightMargin} type="number" validationState={getValidationState(secondRightMargin)} placeholder="数字" />
+                    <FieldGroup label="左边界值" onChange={updateSecondLeftMargin} type="number" validationState={getValidationState(secondLeftMargin)} value={secondLeftMargin} placeholder="数字" />
+                    <FieldGroup label="右边界值" onChange={updateSecondRightMargin} type="number" validationState={getValidationState(secondRightMargin)} value={secondRightMargin} placeholder="数字" />
                   </div>
                 }
                 <br></br>
